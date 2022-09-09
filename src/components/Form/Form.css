@@ -1,0 +1,24 @@
+.form-container{
+    width:55%;
+    margin: 0 auto;
+}
+
+.form-submit-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+@media screen and (max-width:760px) {
+    .form-container{
+        width: 80%;
+    }
+    
+}
+
+@media screen and (max-width:540px) {
+    .form-container{
+        width: 90%;
+    }
+    
+}
+

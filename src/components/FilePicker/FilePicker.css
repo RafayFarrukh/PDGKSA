@@ -1,0 +1,50 @@
+.input-file-img{
+    width: 180px;
+    height: 180px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+input[type=file]
+{
+	direction:rtl;
+	outline: none;
+	padding:5px;
+    font-size: 1.1rem;
+    text-transform: capitalize;
+	background: transparent;
+	display:flex;
+	justify-content:center;
+    margin: 0 auto;
+}
+
+input[type=file]::file-selector-button {
+	cursor: pointer;
+    border-radius: 5px;
+    background: var(--primary-dark-pink);
+    color: var(--primary-white);
+    font-size: 1.1rem;
+    transition:0.1s;
+    padding: 5px;
+    border: none;
+    display:inline-block;
+    margin:0px 15px;
+}
+
+input[type=file]::file-selector-button:hover {
+    transform:scale(1.1);
+}
+
+@media screen and (max-width:450px) {
+    input[type=file]::file-selector-button {
+        display: block;
+        margin: 5px;
+    }
+    input[type=file]
+    {
+        width: 50%;
+            padding: unset;
+            
+    }
+}

@@ -1,0 +1,27 @@
+.form-sub-container{
+    width:100%;
+    border-radius:10px;
+    background:var(--primary-form-bg-color);
+    min-height: 100px;
+    padding: 10px 20px;
+    margin: 30px auto;
+    border:1.5px solid var(--primary-form-bg-color);
+}
+
+.required{
+    color: var(--primary-form-required-color);
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.required-question{
+    color: var(--primary-form-required-color);
+}
+
+.form-sub-container-heading{
+    font-weight: 600;
+}
+
+.form-sub-container-required{
+    border:1.5px solid var(--primary-form-required-color);
+}

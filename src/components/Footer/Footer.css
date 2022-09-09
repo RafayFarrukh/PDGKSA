@@ -1,0 +1,155 @@
+.footer {
+    background: var(--primary-dark-blue);
+    color: var(--primary-white);
+    /*height:200px;*/
+    padding: 20px;
+    margin-top:130px;
+}
+
+.footer-heading {
+    color: var(--primary-white);
+    font-size: 1.5rem;
+    margin:3px 10px;
+    display: flex;
+}
+
+.footer-sub-heading{
+    margin: unset;
+}
+
+.footer-website-icons {
+    color: white;
+    margin: auto 20px;
+    font-size: 1.8rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.footer-website-links {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.footer-website-icons:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.footer-secondary-text
+{
+	color:var(--secondary-ash-grey);
+	cursor:pointer;
+	font-size:1.3rem;
+    font-weight: 500;
+    margin:0px;
+}
+.footer-text {
+    font-size: 1.4rem;
+    color: var(--primary-white);
+    line-height:32px;
+    font-weight:normal;
+}
+
+.footer-copy-right-holder
+{
+	border-top:1px solid var(--secondary-ash-grey) ;
+}
+
+.footer-product-flex
+{
+	display:flex;
+	flex-direction:row;
+	flex-wrap:wrap;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.footer-sub-text{
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.footer-product
+{
+	width:40%;
+	margin:10px auto;
+	cursor:pointer;
+	text-decoration:none;
+	transition: all 0.2s;
+}
+
+.footer-product:hover
+{
+	transform: translate(5px) scale(1.07);
+	border:1px solid var(--secondary-dash-grey);
+	text-decoration:none;
+}
+
+
+.footer-copy-right
+{
+	color:var(--primary-white);
+	padding:4px 10px;
+    margin: 10px;
+	font-size:1.2rem;
+    font-weight: normal;
+}
+.footer-link-text {
+    display: block;
+    font-size: 1rem;
+    margin: auto 0;
+    color: #03a9f4;
+}
+
+.footer-link-text:hover {
+    text-decoration: underline;
+    color: #03a9f4;
+}
+.footer-heading-flex {
+    display: flex;
+    border-bottom: 1px solid var(--secondary-ash-grey);
+    padding-bottom: 20px;
+    justify-content: space-between;
+}
+
+.footer-mail-info {
+    display: flex;
+}
+
+
+.footer-product-heading
+{
+	text-decoration:underline;
+	text-decoration-color:var(--secondary-ash-grey);
+	text-underline-offset:5px;
+}
+
+.footer-text i{
+	font-size:1.5rem;
+}
+.footer-icon
+{
+    margin: auto 5px;
+}
+
+@media screen and (max-width: 540px) {
+    .footer-heading-flex {
+        flex-direction: column;
+    }
+    .footer-website-links {
+        justify-content: space-evenly;
+        margin-top: 20px;
+    }
+    .footer-mail-info {
+        flex-direction: column;
+    }
+    .footer-colon {
+        display: none;
+    }
+    .footer-link-text {
+        margin: auto 20px;
+    }
+    .footer-product
+    {
+        width:80%;
+    }
+}

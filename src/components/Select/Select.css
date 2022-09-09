@@ -1,0 +1,14 @@
+.form-select{
+    padding: 10px;
+    font-size: 1.1rem;
+    background: transparent;
+    border: 1.5px solid var(--primary-form-header-color);
+    border-radius: 10px;
+}
+
+.form-options{
+    background: var(--primary-form-bg-color);
+    padding: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+}

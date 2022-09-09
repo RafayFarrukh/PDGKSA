@@ -1,0 +1,32 @@
+.rounded
+{    border:none;
+    margin-left:3px;
+    margin-right:3px;
+    margin:0;
+    width:100%;
+    border-top: 12px solid var(--primary-form-header-color) ;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.form-sub-holder{
+    width:100%;
+    border-radius:10px;
+    background:var(--primary-form-bg-color);
+    min-height: 100px;
+    margin: 30px auto;
+}
+
+.form-sub-holder-title{
+    padding: 10px 20px;
+    margin:unset;
+    font-size: 1.8rem;
+    font-weight: 600;
+
+}
+
+.form-sub-holder-required{
+    color: var(--primary-form-required-color);
+    padding: 10px 20px;
+    margin:unset;
+}

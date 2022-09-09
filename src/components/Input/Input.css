@@ -1,0 +1,21 @@
+.form-input{
+    background-color: transparent;
+    border: unset;
+    color: var(--primary-font-color);
+    outline: none;
+    border-bottom:2px solid var(--primary-ash-grey);
+    width: 80%;
+    transition: 0.2s ease-in-out;
+    padding-bottom: 10px;
+    font-size: 1.15rem;
+}
+
+.form-input:focus{
+    border-bottom:2px solid var(--primary-form-header-color);
+
+}
+
+.form-input input[type=text]::placeholder{
+    color: var(--primary-label-color);
+    font-size: 1.2rem;
+}

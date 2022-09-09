@@ -1,3 +1,45 @@
+:root {
+  color-scheme: light dark; /* both supported */
+  --primary-white: #ffffff;
+  --primary-red: rgba(195, 20, 50, .4);
+  --primary-dark-blue: #0b1320;
+  --primary-box-shadow:#dadde2;
+  --primary-blue: #0066cc;
+  --secondary-grey: #9e9e9e40;
+  --input-tag-grey: #dcdde1;
+  --primary-ash-grey: #eaedf2;
+  --primary-font-color:#0b1320;
+  --primary-bg-color:#f0ebf8;
+  --primary-dark-pink: #b60863;
+  --secondary-ash-grey: #eaedf2ab;
+  --primary-box-shadow: #9e9e9e;
+  --secondary-box-shadow:#dcdde1;
+  --primary-side-title-color:#e4ebf6;
+  --primary-nav-bar-bg-color:#eceef1;
+  --primary-scroll-bar-track-bg-color:#E0E0E0;
+  --primary-scroll-bar-thumb-bg-color:#9e9e9e;
+  
+  --primary-form-header-color:#673ab7de;
+  --primary-form-bg-color:#ffffff;
+  --primary-form-required-color:#f44336;
+   
+
+}
+
+[data-theme="dark"]{
+  --primary-font-color:#ffffff;
+  --primary-bg-color: #161b22;
+  --secondary-box-shadow:#202020;  
+  --primary-side-title-color:#403d3d; 
+  --primary-scroll-bar-track-bg-color:#2d343e;
+  --primary-scroll-bar-thumb-bg-color:#9e9e9e;
+  --primary-form-header-color:#9477bd;
+  --primary-form-bg-color:#2e353f;
+  --primary-nav-bar-bg-color:#161b22;
+  --primary-form-required-color:#00BCD4;
+   
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +47,35 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--primary-bg-color);
+  color: var(--primary-font-color);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+[data-theme="dark"] body{
+  background-image: #282c34;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+  scrollbar-width: auto; 
+}
+
+*::-webkit-scrollbar{
+  width: 8px;
+  height: 8px;
+  overflow: overlay;
+}
+
+*::-webkit-scrollbar-thumb{
+  background-color: var(--primary-scroll-bar-thumb-bg-color);
+  border-radius: 5px;
+}
+
+*::-webkit-scrollbar-track{
+  background-color: var(--primary-scroll-bar-track-bg-color);
+}
+
