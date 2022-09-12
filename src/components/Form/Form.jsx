@@ -1,8 +1,6 @@
 import React,{useReducer,useCallback,useState, useEffect, useRef} from 'react'
 import Button from '../Button/Button';
 import CheckBox from '../CheckBox/CheckBox';
-// import FilePicker from '../FilePicker/FilePicker';
-import FormHeader from '../FormHeader/FormHeader';
 import FormSubContainer from '../FormSubContainer/FormSubContainer';
 import Input from '../Input/Input';
 import RadioButton from '../RadioButton/RadioButton';
@@ -215,10 +213,9 @@ function Form(){
             }
         }
 
-        // setUserImageUrl('');
 
     }
-
+//username,email,dateOfBirth,maritalStatus,age,hospitalname ,laptopOwnStatus,preferredFavouriteTravel,entryksa ,speciality, SCFHS
     const submitHandler=(event)=>{
 		event.preventDefault();
         // password= bcrypt.hashSync(password,10)
@@ -230,6 +227,15 @@ function Form(){
           username:username,
           email:email,
           password:hashedPassword,
+          dateOfBirth:dateOfBirth,
+          maritalStatus:maritalStatus,
+          age:age,
+          hospitalname:hospitalname,
+          laptopOwnStatus:laptopOwnStatus,
+          preferredFavouriteTravel:preferredFavouriteTravel,
+          entryksa:entryksa,
+          speciality:speciality,
+          SCFHS:SCFHS
         })
         .then((resp) => console.log(resp))
         // .then(navigate("/login"))
@@ -263,7 +269,6 @@ function Form(){
     return(
         <form className='form-container' onSubmit={submitHandler}>
 
-            <FormHeader title='Contact Details Form'/>
 
             <FormSubContainer title="Name"  isRequired={true} invalid={invalidObject['name']}>
                 <Input

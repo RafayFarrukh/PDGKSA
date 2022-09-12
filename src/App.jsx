@@ -1,9 +1,10 @@
-import { useEffect } from "react";
 import "./App.css";
 import Footer from "./components/Footer/Footer.jsx";
 import Form from "./components/Form/Form.jsx";
 import NavBar from "./components/NavBar/NavBar";
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./components/Login/Login";
+import AllUsers from "./components/AllUsers/AllUsers";
 const navBarModel={
   title:"Forms",
   iconClass:'',
@@ -22,32 +23,28 @@ const navBarModel={
 }
 
 function App() {
-  useEffect(()=>{
-    var theme="light";    //default to light
-    //local storage is used to override OS theme settings
-    if(localStorage.getItem("theme")){
-        if(localStorage.getItem("theme") === "dark"){
-             theme = "dark";
-        }
-    } else if(!window.matchMedia) {
-        //matchMedia method not supported
-        console.log("matchmedia not supported");
-        return;
-    } else if(window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        //OS theme setting detected as dark
-         theme = "dark";
-    }
-  
-    document.documentElement.setAttribute("data-theme", theme);
 
-  },[]);
   return (
     <>
+   
+
+
+
+    <BrowserRouter>
     <NavBar {...navBarModel}/>
     <div className="app-body" id='Home'>
-        <Form/>
+        {/* <Form/> */}
     </div>
+      <Routes>
+        {/* <Route path="/" element={<Navbar />} /> */}
+        <Route exact path="/" element={<Form />} />
+        <Route exact path="login" element={<Login />} />
+        <Route exact path="AllUsers" element={<AllUsers />} />
+        
+      </Routes>
     <Footer imgSrc = {navBarModel.imgSrc}/>
+
+    </BrowserRouter>
   </>
   );
 }
