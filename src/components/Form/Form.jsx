@@ -16,20 +16,19 @@ const reducerFunction=(state,action)=>{
          return {...state,[action.name]:{...state[action.name],[action.subName]:action.value}}
     return{...state,[action.name]:action.value}
 }
-
 const initialValue={
-    username:'', // input type text
+    name:'', // input type text
     email:'', // input type e-mail
     qualification:'', //drop down select
-    dateOfBirth:'', // input type date
-    maritalStatus:'', //radio button
-    age:'', // input type number
-    hospitalname:"",
-    entryksa:"",
+    mobile:'', // input type date
+    hospitalPost:'', //radio button
+    residencyDuration:'', // input type number
+    workingPlace:"",
+    yearOfEntry:"",
     password:"",
-    SCFHS:"",
-    laptopOwnStatus:'', // radio button
-    preferredFavouriteTravel:{
+    SCFHSpost:"",
+    gender:'', // radio button
+    qualification:{
         FCPS:false,
         MCPS:false,
         "Fellowship fromRoyal College of UK":true,
@@ -77,25 +76,25 @@ const initialValue={
         "PAEDIATRIC SURGERY":false,
         "PAEDIATRICS":false,
     }
-    // preferredFavouriteTravel:{MCPS:true,"hi you":true}
+    // qualification:{MCPS:true,"hi you":true}
     // checkbox
-    // userImage:'' // file picker for img 
+    // userImresidencyDuration:'' // file picker for img 
 }
 
 const initialValueValidation={
-    username:false, // input type text
+    name:false, // input type text
     email:false, // input type e-mail
     qualification:false, //drop down select
-    dateOfBirth:false, // input type date
-    maritalStatus:false, //radio button
-    age:false, // input type number
-    hospitalname:false,
-    entryksa:false,
-    SCFHS:false,
+    mobile:false, // input type date
+    hospitalPost:false, //radio button
+    residencyDuration:false, // input type number
+    workingPlace:false,
+    yearOfEntry:false,
+    SCFHSpost:false,
     password:false,
 
-    laptopOwnStatus:false, // radio button
-    preferredFavouriteTravel:{
+    gender:false, // radio button
+    qualification:{
         FCPS:false,
         MCPS:false,
         "Fellowship fromRoyal College of UK":true,
@@ -111,10 +110,10 @@ const initialValueValidation={
         
     },
     speciality:{
-        ANAESTHESIOLOGY:true,
-        "CARDIAC SURGERY":true,
-        CARDIOLOGY:true,
-        "CHEMICAL PATHOLOGY":true,
+        ANAESTHESIOLOGY:false,
+        "CARDIAC SURGERY":false,
+        CARDIOLOGY:false,
+        "CHEMICAL PATHOLOGY":false,
         "CLINICAL HAEMATOLOGY":false,
         "COMMUNITY MEDICINE":false,
         "Arab DERMATOLOGY":false,
@@ -143,9 +142,9 @@ const initialValueValidation={
         "PAEDIATRIC SURGERY":false,
         "PAEDIATRICS":false,
     }
-    // preferredFavouriteTravel:{MCPS:true,"hi you":true}
+    // qualification:{MCPS:true,"hi you":true}
     // checkbox
-    // userImage:false // file picker for img 
+    // userImresidencyDuration:false // file picker for img 
 }
 
 
@@ -159,7 +158,7 @@ const reducerFunctionValidation=(state,action)=>{
 
 function Form(){
 
-    const selectOptions=['B.E','M.E','BSC','B.TECH','M.TECH','B.COM','OTHER'];
+    const selectOptions=['Green Acre','Lahore','BSC','B.TECH','M.TECH','B.COM','OTHER'];
 
     const [formData,dispatchFunction]=useReducer(reducerFunction,initialValue);
 
@@ -171,7 +170,7 @@ function Form(){
     const refObject=useRef({});
 
    
-    const {username,email,dateOfBirth,maritalStatus,age,hospitalname ,laptopOwnStatus,preferredFavouriteTravel,entryksa ,speciality, SCFHS,password,
+    const {name,email,mobile,hospitalPost,residencyDuration,workingPlace ,gender,qualification,yearOfEntry ,speciality, SCFHSpost,password,
          hashedPassword = bcrypt.hashSync(password, '$2a$10$CwTycUXWue0Thq9StjUM0u') ,
     
     
@@ -189,8 +188,8 @@ function Form(){
 	},[])
 
     const updateCheckBox=useCallback((event)=>{
-        dispatchFunction({'name':'preferredFavouriteTravel','subName':event.target.name,value:!preferredFavouriteTravel[event.target.name]})
-    },[preferredFavouriteTravel]);
+        dispatchFunction({'name':'qualification','subName':event.target.name,value:!qualification[event.target.name]})
+    },[qualification]);
     const updatespecialityBox=useCallback((event)=>{
         dispatchFunction({'name':'speciality','subName':event.target.name,value:!speciality[event.target.name]})
     },[speciality]);
@@ -198,7 +197,7 @@ function Form(){
     const clearFormFunction=()=>{
         for (const [key, value] of Object.entries(initialValue)) 
         {
-            if(key==='preferredFavouriteTravel')
+            if(key==='qualification')
             {
                 for(let secondKey in value)
                 {
@@ -215,7 +214,7 @@ function Form(){
 
 
     }
-//username,email,dateOfBirth,maritalStatus,age,hospitalname ,laptopOwnStatus,preferredFavouriteTravel,entryksa ,speciality, SCFHS
+//name,email,mobile,hospitalPost,residencyDuration,workingPlace ,gender,qualification,yearOfEntry ,speciality, SCFHSpost
     const submitHandler=(event)=>{
 		event.preventDefault();
         // password= bcrypt.hashSync(password,10)
@@ -224,18 +223,18 @@ function Form(){
         axios
         // .post("http://localhost:5000/api/user/register", {
         .post("https://pakdoctorsksa.com/api/Users/SignUp", {
-          username:username,
+          name:name,
           email:email,
           password:hashedPassword,
-          dateOfBirth:dateOfBirth,
-          maritalStatus:maritalStatus,
-          age:age,
-          hospitalname:hospitalname,
-          laptopOwnStatus:laptopOwnStatus,
-          preferredFavouriteTravel:preferredFavouriteTravel,
-          entryksa:entryksa,
+          mobile:mobile,
+          hospitalPost:hospitalPost,
+          residencyDuration:residencyDuration,
+          workingPlace:workingPlace,
+          gender:gender,
+          qualification:qualification,
+          yearOfEntry:yearOfEntry,
           speciality:speciality,
-          SCFHS:SCFHS
+          SCFHSpost:SCFHSpost
         })
         .then((resp) => console.log(resp))
         // .then(navigate("/login"))
@@ -274,8 +273,8 @@ function Form(){
                 <Input
                 placeholder='your name please'
                 type='text'
-                name='username'
-                value={username}
+                name='name'
+                value={name}
                 inputFocusEvent={inputFocusEvent}
                 inputRef={ref=> refObject.current['name'] = ref}
                 onChange={updateFormData}
@@ -286,27 +285,27 @@ function Form(){
             <FormSubContainer title="Gender" isRequired={true} invalid={false}>
                 <RadioButton
                     title="Male"
-                    value="hiii"
-                    name="laptopOwnStatus"
-                    checked={laptopOwnStatus}
+                    value="Male"
+                    name="gender"
+                    checked={gender}
                     onChange={updateFormData}
                 />
                 <RadioButton
                     title="female"
-                    value="no"
-                    checked={laptopOwnStatus}
-                    name="laptopOwnStatus"
+                    value="Female"
+                    checked={gender}
+                    name="gender"
                     onChange={updateFormData}
                 />
             </FormSubContainer>
 
             <FormSubContainer title="QUALIFICATIONS"  isRequired={true} invalid={false}>
                 {
-                    Object.keys(preferredFavouriteTravel).map((key,index)=>
+                    Object.keys(qualification).map((key,index)=>
                         <CheckBox
                             key={index}
                             title={key}
-                            checked={preferredFavouriteTravel[key]}
+                            checked={qualification[key]}
                             name={key}
                             value={key}
                             onChange={updateCheckBox}
@@ -333,24 +332,24 @@ function Form(){
 
             <FormSubContainer title="YEARS OF ALL POST GRADUATION"
       
- isRequired={true} invalid={invalidObject['age']}>
+ isRequired={true} invalid={invalidObject['residencyDuration']}>
                 <Input
                 placeholder='Your Answer'
                 type='number'
-                name='age'
-                value={age}
+                name='residencyDuration'
+                value={residencyDuration}
                 inputFocusEvent={inputFocusEvent}
-                inputRef={ref=> refObject.current['age'] = ref}
+                inputRef={ref=> refObject.current['residencyDuration'] = ref}
                 onChange={updateFormData}
                 />
             </FormSubContainer>
 
-            <FormSubContainer title="Working Place (City/ Region) " isRequired={true} invalid={invalidObject['qualification']}>
+            <FormSubContainer title="Working Place (City/ Region) " isRequired={true} >
                 <Select
                 selectOptions={selectOptions}
-                name="qualification"
+                name="selectOptions"
                 onChange={updateFormData}
-                selectRef={ref=> refObject.current['qualification'] = ref}
+                // selectRef={ref=> refObject.current['qualification'] = ref}
                 />
             </FormSubContainer>
                   
@@ -364,8 +363,8 @@ function Form(){
                      <Input
                      placeholder='Your Answer'
                      type='text'
-                     name='hospitalname'
-                     value={hospitalname}
+                     name='workingPlace'
+                     value={workingPlace}
                      inputFocusEvent={inputFocusEvent}
                     //  inputRef={ref=> refObject.current['hospital'] = ref}
                      onChange={updateFormData}
@@ -374,12 +373,12 @@ function Form(){
 
                            
             <FormSubContainer title="YEAR of Entry in KSA."
-              isRequired={true} invalid={invalidObject['age']}>
+              isRequired={true} invalid={invalidObject['residencyDuration']}>
                      <Input
                      placeholder='Your Answer'
                      type='text'
-                     name='entryksa'
-                     value={entryksa}
+                     name='yearOfEntry'
+                     value={yearOfEntry}
                      inputFocusEvent={inputFocusEvent}
                     //  inputRef={ref=> refObject.current['ksa'] = ref}
                      onChange={updateFormData}
@@ -390,43 +389,43 @@ function Form(){
                 <RadioButton
                     title="ConsultanProfessor"
                     value="ConsultanProfessor"
-                    name="maritalStatus"
-                    checked={maritalStatus}
+                    name="hospitalPost"
+                    checked={hospitalPost}
                     onChange={updateFormData}
                 />
                 <RadioButton
                     title="Senior Rgistrar / Associate Consultant! A P"
                     value="Senior Rgistrar / Associate Consultant! A P"
-                    checked={maritalStatus}
-                    name="maritalStatus"
+                    checked={hospitalPost}
+                    name="hospitalPost"
                     onChange={updateFormData}
                 />
                  <RadioButton
                     title="Rgistrar / Assisstant Consultant / Specialist"
                     value="Rgistrar / Assisstant Consultant / Specialist"
-                    checked={maritalStatus}
-                    name="maritalStatus"
+                    checked={hospitalPost}
+                    name="hospitalPost"
                     onChange={updateFormData}
                 />
                  <RadioButton
                     title="Resident"
                     value="Resident"
-                    checked={maritalStatus}
-                    name="maritalStatus"
+                    checked={hospitalPost}
+                    name="hospitalPost"
                     onChange={updateFormData}
                 />
                  <RadioButton
                     title="House Physician / General Practitioner"
                     value="House Physician / General Practitioner"
-                    checked={maritalStatus}
-                    name="maritalStatus"
+                    checked={hospitalPost}
+                    name="hospitalPost"
                     onChange={updateFormData}
                 />
                  <RadioButton
                     title="Other:"
                     value="Other:"
-                    checked={maritalStatus}
-                    name="maritalStatus"
+                    checked={hospitalPost}
+                    name="hospitalPost"
                     onChange={updateFormData}
                 />
             </FormSubContainer>
@@ -436,40 +435,40 @@ function Form(){
 
            
              
-                 <FormSubContainer title="POST IN SCFHS" isRequired={true} invalid={false}>
+                 <FormSubContainer title="POST IN SCFHSpost" isRequired={true} invalid={false}>
                 <RadioButton
                     title="Consultant"
                     value="Consultant"
-                    name="SCFHS"
-                    checked={SCFHS}
+                    name="SCFHSpost"
+                    checked={SCFHSpost}
                     onChange={updateFormData}
                 />
                 <RadioButton
                     title="Senior Registrar"
                     value="Senior Registrar"
-                    checked={SCFHS}
-                    name="SCFHS"
+                    checked={SCFHSpost}
+                    name="SCFHSpost"
                     onChange={updateFormData}
                 />
                  <RadioButton
                     title="Registrar"
                     value="Registrar"
-                    checked={SCFHS}
-                    name="SCFHS"
+                    checked={SCFHSpost}
+                    name="SCFHSpost"
                     onChange={updateFormData}
                 />
                  <RadioButton
                     title="General Practitioner"
                     value="General Practitioner"
-                    checked={SCFHS}
-                    name="SCFHS"
+                    checked={SCFHSpost}
+                    name="SCFHSpost"
                     onChange={updateFormData}
                 />
                  <RadioButton
                     title="Resident"
                     value="Resident"
-                    checked={SCFHS}
-                    name="SCFHS"
+                    checked={SCFHSpost}
+                    name="SCFHSpost"
                     onChange={updateFormData}
                 />
                
@@ -499,14 +498,14 @@ function Form(){
                 />
             </FormSubContainer>
 
-            <FormSubContainer title="Mobile Number Saudi Local Contact 05......."  isRequired={true} invalid={invalidObject['dateOfBirth']}>
+            <FormSubContainer title="Mobile Number Saudi Local Contact 05......."  isRequired={true} invalid={invalidObject['mobile']}>
                 <Input
                 placeholder='Your Answer'
                 type='number'
-                name='dateOfBirth'
-                value={dateOfBirth}
+                name='mobile'
+                value={mobile}
                 inputFocusEvent={inputFocusEvent}
-                // inputRef={ref=> refObject.current['dateOfBirth'] = ref}
+                // inputRef={ref=> refObject.current['mobile'] = ref}
                 onChange={updateFormData}
                 />
             </FormSubContainer>
@@ -525,7 +524,7 @@ function Form(){
                     Clear Form
                 </Button>
                 <Button type="submit" disabled={
-                   !( username!=='' && email!=='' && dateOfBirth!=='' && maritalStatus!=='' && age!=='' && laptopOwnStatus!=='' )
+                   !( name!=='' && email!=='' && mobile!=='' && hospitalPost!=='' && residencyDuration!=='' && gender!=='' )
                 } classProp="button">
                     Submit
                 </Button>
