@@ -39,7 +39,7 @@ const AllUsers = () => {
   }
   return (
     <AuthCheck>
-    <div>AllUsers</div>
+    {/* <div>AllUsers</div> */}
    
 
 
@@ -77,6 +77,26 @@ const AllUsers = () => {
                Mobile
                 </th>
                 <th scope="col" class="py-3 px-6">
+               qualifications
+                </th>
+                <th scope="col" class="py-3 px-6">
+                Year Of All Post Graduation
+                </th>
+                <th scope="col" class="py-3 px-6">
+               Specification
+                </th>
+                <th scope="col" class="py-3 px-6">
+                TransScript
+                </th>
+                
+                <th scope="col" class="py-3 px-6">
+                SCFHSresponse
+                </th>
+                <th scope="col" class="py-3 px-6">
+                residencyDuration
+                </th>
+                
+                <th scope="col" class="py-3 px-6">
                 Approve
                 </th>
             </tr>
@@ -109,6 +129,12 @@ const AllUsers = () => {
                       <td className="py-4 px-6">{user.SCFHSpost}</td>
                       <td className="py-4 px-6">{user.HosNameCity}</td>
                       <td className="py-4 px-6">{user.mobile}</td>
+                      <td className="py-4 px-6">{user.qualification}</td>
+                      <td className="py-4 px-6">{user.yoapgd}</td>
+                      <td className="py-4 px-6">{user.speciality}</td>
+                      <td className="py-4 px-6">{user.transScript}</td>
+                      <td className="py-4 px-6">{user.SCFHSresponse}</td>
+                      <td className="py-4 px-6">{user.residencyDuration}</td>
                       {user.status==1?(
                         <button  onClick={
                           ()=>{

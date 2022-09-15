@@ -16,6 +16,14 @@ const reducerFunction=(state,action)=>{
          return {...state,[action.name]:{...state[action.name],[action.subName]:action.value}}
     return{...state,[action.name]:action.value}
 }
+
+const values = [
+    { id: 1, item: "FCPS" },
+    { id: 2, item: "MCPS" },
+    { id: 3, item: "Fellowship fromRoyal College of UK" },
+    { id: 4, item: "Fellowship fromRoyal College of UK" }
+  ];
+
 const initialValue={
     name:'', // input type text
     email:'', // input type e-mail
@@ -28,54 +36,54 @@ const initialValue={
     password:"",
     SCFHSpost:"",
     gender:'', // radio button
-    qualification:{
-        FCPS:false,
-        MCPS:false,
-        "Fellowship fromRoyal College of UK":true,
-        "Fellowship from Royal College of Ireland":false,
-        "Membership from Royal College of UK":false,
-        "Membership from Royal College of Ireland":false,
-        "Arab Board":false,
-        "Saudi Board":false,
-        "American Board Certification":false,
-        "European diploma":false,
-        "FCPS Part-1 (part 2 not yer finished)":false,
-        "Other":false,
+    // qualification:{
+    //     FCPS:"",
+    //     MCPS:"",
+    //     "Fellowship fromRoyal College of UK":"",
+    //     "Fellowship from Royal College of Ireland":"",
+    //     "Membership from Royal College of UK":"",
+    //     "Membership from Royal College of Ireland":"",
+    //     "Arab Board":"",
+    //     "Saudi Board":"",
+    //     "American Board Certification":"",
+    //     "European diploma":"",
+    //     "FCPS Part-1 (part 2 not yer finished)":"",
+    //     "Other":"",
         
-    },
-    speciality:{
-        ANAESTHESIOLOGY:true,
-        "CARDIAC SURGERY":true,
-        CARDIOLOGY:true,
-        "CHEMICAL PATHOLOGY":true,
-        "CLINICAL HAEMATOLOGY":false,
-        "COMMUNITY MEDICINE":false,
-        "Arab DERMATOLOGY":false,
-        "DIAGNOSTIC RADIOLOGY":false,
-        "EMERGENCY MEDICINE":false,
-        "FAMILY MEDICINE":false,
-        "FORENSIC MEDICINE":false,
-        "GASTROENTEROLOGY":false,
-        "GENERAL SURGERY":false,
-        "HAEMATOLOGY":false,
-        "HISTOPATHOLOGY":false,
-        "INTERNAL MEDICINE":false,
-        "MEDICINE":false,
-        "MICROBIOLOGY":false,
-        "Madical ONCOLOGY":false,
-        "NEPHROLOGY":false,
-        "NEUROLOGY":false,
-        "NUCLEAR MEDICINE":false,
-        "OBSTETRICS & GYNAECOLOGY":false,
-        "Operative DENTISRY":false,
-        "OPTHALMOLOGY":false,
-        "ORAL & MANILLO- FACIAL SURGERY":false,
-        "ORTHODONTICS":false,
-        "ORTHOPAEDIC Surgery":false,
-        "OTO- RHINO- LOGY ENT)":false,
-        "PAEDIATRIC SURGERY":false,
-        "PAEDIATRICS":false,
-    }
+    // },
+    // speciality:{
+    //     ANAESTHESIOLOGY:"",
+    //     "CARDIAC SURGERY":"",
+    //     CARDIOLOGY:"",
+    //     "CHEMICAL PATHOLOGY":"",
+    //     "CLINICAL HAEMATOLOGY":"",
+    //     "COMMUNITY MEDICINE":"",
+    //     "Arab DERMATOLOGY":"",
+    //     "DIAGNOSTIC RADIOLOGY":"",
+    //     "EMERGENCY MEDICINE":"",
+    //     "FAMILY MEDICINE":"",
+    //     "FORENSIC MEDICINE":"",
+    //     "GASTROENTEROLOGY":"",
+    //     "GENERAL SURGERY":"",
+    //     "HAEMATOLOGY":"",
+    //     "HISTOPATHOLOGY":"",
+    //     "INTERNAL MEDICINE":"",
+    //     "MEDICINE":"",
+    //     "MICROBIOLOGY":"",
+    //     "Madical ONCOLOGY":"",
+    //     "NEPHROLOGY":"",
+    //     "NEUROLOGY":"",
+    //     "NUCLEAR MEDICINE":"",
+    //     "OBSTETRICS & GYNAECOLOGY":"",
+    //     "Operative DENTISRY":"",
+    //     "OPTHALMOLOGY":"",
+    //     "ORAL & MANILLO- FACIAL SURGERY":"",
+    //     "ORTHODONTICS":"",
+    //     "ORTHOPAEDIC Surgery":"",
+    //     "OTO- RHINO- LOGY ENT)":"",
+    //     "PAEDIATRIC SURGERY":"",
+    //     "PAEDIATRICS":"",
+    // }
     // qualification:{MCPS:true,"hi you":true}
     // checkbox
     // userImresidencyDuration:'' // file picker for img 
@@ -94,54 +102,55 @@ const initialValueValidation={
     password:false,
 
     gender:false, // radio button
-    qualification:{
-        FCPS:false,
-        MCPS:false,
-        "Fellowship fromRoyal College of UK":true,
-        "Fellowship from Royal College of Ireland":false,
-        "Membership from Royal College of UK":false,
-        "Membership from Royal College of Ireland":false,
-        "Arab Board":false,
-        "Saudi Board":false,
-        "American Board Certification":false,
-        "European diploma":false,
-        "FCPS Part-1 (part 2 not yer finished)":false,
-        "Other":false,
+    qualification :false
+    // qualification:{
+    //     FCPS:false,
+    //     MCPS:false,
+    //     "Fellowship fromRoyal College of UK":true,
+    //     "Fellowship from Royal College of Ireland":false,
+    //     "Membership from Royal College of UK":false,
+    //     "Membership from Royal College of Ireland":false,
+    //     "Arab Board":false,
+    //     "Saudi Board":false,
+    //     "American Board Certification":false,
+    //     "European diploma":false,
+    //     "FCPS Part-1 (part 2 not yer finished)":false,
+    //     "Other":false,
         
-    },
-    speciality:{
-        ANAESTHESIOLOGY:false,
-        "CARDIAC SURGERY":false,
-        CARDIOLOGY:false,
-        "CHEMICAL PATHOLOGY":false,
-        "CLINICAL HAEMATOLOGY":false,
-        "COMMUNITY MEDICINE":false,
-        "Arab DERMATOLOGY":false,
-        "DIAGNOSTIC RADIOLOGY":false,
-        "EMERGENCY MEDICINE":false,
-        "FAMILY MEDICINE":false,
-        "FORENSIC MEDICINE":false,
-        "GASTROENTEROLOGY":false,
-        "GENERAL SURGERY":false,
-        "HAEMATOLOGY":false,
-        "HISTOPATHOLOGY":false,
-        "INTERNAL MEDICINE":false,
-        "MEDICINE":false,
-        "MICROBIOLOGY":false,
-        "Madical ONCOLOGY":false,
-        "NEPHROLOGY":false,
-        "NEUROLOGY":false,
-        "NUCLEAR MEDICINE":false,
-        "OBSTETRICS & GYNAECOLOGY":false,
-        "Operative DENTISRY":false,
-        "OPTHALMOLOGY":false,
-        "ORAL & MANILLO- FACIAL SURGERY":false,
-        "ORTHODONTICS":false,
-        "ORTHOPAEDIC Surgery":false,
-        "OTO- RHINO- LOGY ENT)":false,
-        "PAEDIATRIC SURGERY":false,
-        "PAEDIATRICS":false,
-    }
+    // },
+    // speciality:{
+    //     ANAESTHESIOLOGY:false,
+    //     "CARDIAC SURGERY":false,
+    //     CARDIOLOGY:false,
+    //     "CHEMICAL PATHOLOGY":false,
+    //     "CLINICAL HAEMATOLOGY":false,
+    //     "COMMUNITY MEDICINE":false,
+    //     "Arab DERMATOLOGY":false,
+    //     "DIAGNOSTIC RADIOLOGY":false,
+    //     "EMERGENCY MEDICINE":false,
+    //     "FAMILY MEDICINE":false,
+    //     "FORENSIC MEDICINE":false,
+    //     "GASTROENTEROLOGY":false,
+    //     "GENERAL SURGERY":false,
+    //     "HAEMATOLOGY":false,
+    //     "HISTOPATHOLOGY":false,
+    //     "INTERNAL MEDICINE":false,
+    //     "MEDICINE":false,
+    //     "MICROBIOLOGY":false,
+    //     "Madical ONCOLOGY":false,
+    //     "NEPHROLOGY":false,
+    //     "NEUROLOGY":false,
+    //     "NUCLEAR MEDICINE":false,
+    //     "OBSTETRICS & GYNAECOLOGY":false,
+    //     "Operative DENTISRY":false,
+    //     "OPTHALMOLOGY":false,
+    //     "ORAL & MANILLO- FACIAL SURGERY":false,
+    //     "ORTHODONTICS":false,
+    //     "ORTHOPAEDIC Surgery":false,
+    //     "OTO- RHINO- LOGY ENT)":false,
+    //     "PAEDIATRIC SURGERY":false,
+    //     "PAEDIATRICS":false,
+    // }
     // qualification:{MCPS:true,"hi you":true}
     // checkbox
     // userImresidencyDuration:false // file picker for img 
@@ -218,27 +227,27 @@ function Form(){
     const submitHandler=(event)=>{
 		event.preventDefault();
         // password= bcrypt.hashSync(password,10)
-        console.log(formData);
         clearFormFunction();
-        axios
-        // .post("http://localhost:5000/api/user/register", {
-        .post("https://pakdoctorsksa.com/api/Users/SignUp", {
-          name:name,
-          email:email,
-          password:hashedPassword,
-          mobile:mobile,
-          hospitalPost:hospitalPost,
-          residencyDuration:residencyDuration,
-          workingPlace:workingPlace,
-          gender:gender,
-          qualification:qualification,
-          yearOfEntry:yearOfEntry,
-          speciality:speciality,
-          SCFHSpost:SCFHSpost
-        })
-        .then((resp) => console.log(resp))
-        // .then(navigate("/login"))
-        .catch((err) => console.log(err));
+        console.log(formData);
+        // axios
+        // // .post("http://localhost:5000/api/user/register", {
+        // .post("https://pakdoctorsksa.com/api/Users/SignUp", {
+        //   name:name,
+        //   email:email,
+        //   password:hashedPassword,
+        //   mobile:mobile,
+        //   hospitalPost:hospitalPost,
+        //   residencyDuration:residencyDuration,
+        //   workingPlace:workingPlace,
+        //   gender:gender,
+        //   qualification:qualification,
+        //   yearOfEntry:yearOfEntry,
+        //   speciality:speciality,
+        //   SCFHSpost:SCFHSpost
+        // })
+        // .then((resp) => console.log(resp))
+        // // .then(navigate("/login"))
+        // .catch((err) => console.log(err));
 
     }
     
@@ -259,11 +268,17 @@ function Form(){
         }
     }
 
+    const [pjl, setPjl] = useState([])
+    const getPjl = (e) => {
+        let data = pjl
+        data.push(e.target.value)
+        setPjl(data)
+      }
     useEffect(()=>{
         window.addEventListener('mouseup',handleMouseEvent);
         return ()=> window.removeEventListener('mouseup',handleMouseEvent);
     },[handleMouseEvent])
-
+    
 
     return(
         <form className='form-container' onSubmit={submitHandler}>
@@ -299,36 +314,46 @@ function Form(){
                 />
             </FormSubContainer>
 
-            <FormSubContainer title="QUALIFICATIONS"  isRequired={true} invalid={false}>
-                {
-                    Object.keys(qualification).map((key,index)=>
-                        <CheckBox
-                            key={index}
-                            title={key}
-                            checked={qualification[key]}
-                            name={key}
-                            value={key}
-                            onChange={updateCheckBox}
-                            />
-                    )
-                }
+            <FormSubContainer title="QUALIFICATIONS"  isRequired={true} invalid={false} >
+                
+         
+
+           
+                                   
+                                          <CheckBox
+                                          title="FCPS"
+                                          value="FCPS"
+                                          name="qualification"
+                                          checked={qualification.value}
+                                          onChange={updateFormData}
+                                      />
+                                      <CheckBox
+                                          title="MCPS"
+                                          value="MCPS"
+                                          checked={qualification.value}
+                                          name="qualification4"
+                                          onChange={updateFormData}
+                                      />
+                                       <CheckBox
+                                          title="Fellowship fromRoyal College of UK"
+                                          value="Fellowship fromRoyal College of UK"
+                                          checked={qualification.value}
+                                          name="qualification2"
+                                          onChange={updateFormData}
+                                      />
+                                       <CheckBox
+                                          title="England"
+                                          value="England"
+                                          checked={qualification.value}
+                                          name="qualification3"
+                                          onChange={updateFormData}
+                                      />
+                                     
+                
             </FormSubContainer>
 
 
-            <FormSubContainer title="SPECIALITY"  isRequired={true} invalid={false}>
-                {
-                    Object.keys(speciality).map((key,index)=>
-                        <CheckBox
-                            key={index}
-                            title={key}
-                            checked={speciality[key]}
-                            name={key}
-                            value={key}
-                            onChange={updatespecialityBox}
-                            />
-                    )
-                }
-            </FormSubContainer>
+        
 
             <FormSubContainer title="YEARS OF ALL POST GRADUATION"
       
