@@ -18,6 +18,7 @@ const AllUsers = () => {
                       }))
         
          console.log(res.data.data)
+        
       })
      
       .catch((err) => {
@@ -116,7 +117,7 @@ const AllUsers = () => {
           {products.map?.((user,index) => (
             <>
           
-
+                       {console.log(user.qualification[0+1])}
                       <tr  key={index} > 
                                 
                       <td className="py-4 px-6">{user.name}</td>
@@ -130,6 +131,10 @@ const AllUsers = () => {
                       <td className="py-4 px-6">{user.HosNameCity}</td>
                       <td className="py-4 px-6">{user.mobile}</td>
                       <td className="py-4 px-6">{user.qualification}</td>
+               
+
+                      {/* <td className="py-4 px-6">{user.qualification[0]+user.qualification[1]+user.qualification[2]+user.qualification[3]+user.qualification[4]+user.qualification[5]}</td> */}
+                     
                       <td className="py-4 px-6">{user.yoapgd}</td>
                       <td className="py-4 px-6">{user.speciality}</td>
                       <td className="py-4 px-6">{user.transScript}</td>

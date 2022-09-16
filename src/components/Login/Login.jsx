@@ -3,8 +3,10 @@ import LockIcon from "@mui/icons-material/Lock";
 import EmailIcon from "@mui/icons-material/Email";
 import { useState } from "react";
 import bcrypt from 'bcryptjs'
+import { toast } from 'react-toastify'
 import M from 'materialize-css'
 import axios from "axios";
+import 'react-toastify/dist/ReactToastify.css'
 import { useNavigate } from "react-router-dom";
 const Login = () => {
   const navigate = useNavigate();
@@ -19,8 +21,7 @@ const Login = () => {
     
     e.preventDefault();
 
-
-
+  
     axios
       .post("https://pakdoctorsksa.com/api/Users/Login", {
         // .post("/api/user/login", {
@@ -30,7 +31,12 @@ const Login = () => {
       })
       .then((resp) => {
         localStorage.setItem("User", resp.data.data.data,);
-        M.toast({html:"signedin success",classes:"#43a047 green darken-1"})
+/* Example */
+toast.success("login succesfully",{
+  position:"top-right"
+})
+
+        // M.toast({html:"signedin success",classes:"#43a047 green darken-1"})
         navigate("/AllUsers");
 
         console.log(resp.data);

@@ -4,30 +4,29 @@ import CheckBox from '../CheckBox/CheckBox';
 import FormSubContainer from '../FormSubContainer/FormSubContainer';
 import Input from '../Input/Input';
 import RadioButton from '../RadioButton/RadioButton';
+import M from 'materialize-css'
 import Select from '../Select/Select';
 import bcrypt from 'bcryptjs'
 import "./Form.css";
+import { FormControlLabel, Checkbox} from '@mui/material';
 import axios from 'axios'
 const salt = bcrypt.genSaltSync(10)
-
 
 const reducerFunction=(state,action)=>{
 	if(action.subName)
          return {...state,[action.name]:{...state[action.name],[action.subName]:action.value}}
     return{...state,[action.name]:action.value}
+ 
+
 }
 
-const values = [
-    { id: 1, item: "FCPS" },
-    { id: 2, item: "MCPS" },
-    { id: 3, item: "Fellowship fromRoyal College of UK" },
-    { id: 4, item: "Fellowship fromRoyal College of UK" }
-  ];
+
+
 
 const initialValue={
     name:'', // input type text
     email:'', // input type e-mail
-    qualification:'', //drop down select
+    qualification:[], //drop down select
     mobile:'', // input type date
     hospitalPost:'', //radio button
     residencyDuration:'', // input type number
@@ -36,54 +35,58 @@ const initialValue={
     password:"",
     SCFHSpost:"",
     gender:'', // radio button
-    // qualification:{
-    //     FCPS:"",
-    //     MCPS:"",
-    //     "Fellowship fromRoyal College of UK":"",
-    //     "Fellowship from Royal College of Ireland":"",
-    //     "Membership from Royal College of UK":"",
-    //     "Membership from Royal College of Ireland":"",
-    //     "Arab Board":"",
-    //     "Saudi Board":"",
-    //     "American Board Certification":"",
-    //     "European diploma":"",
-    //     "FCPS Part-1 (part 2 not yer finished)":"",
-    //     "Other":"",
+    transScript:"",
+    yoapgd:"",
+    SCFHSresponse:"",
+    residencyDuration:"",
+    qualification:{
+        "FCPS":'',
+        "MCPS":'',
+        "Fellowship from Royal College of UK":"",
+        "Fellowship from Royal College of Ireland":"",
+        "Membership from Royal College of UK":"",
+        "Membership from Royal College of Ireland":"",
+        "Arab Board":"",
+        "Saudi Board":"",
+        "American Board Certification":"",
+        "European diploma":"",
+        "FCPS Part-1 (part 2 not yer finished)":"",
+        "Other":"",
         
-    // },
-    // speciality:{
-    //     ANAESTHESIOLOGY:"",
-    //     "CARDIAC SURGERY":"",
-    //     CARDIOLOGY:"",
-    //     "CHEMICAL PATHOLOGY":"",
-    //     "CLINICAL HAEMATOLOGY":"",
-    //     "COMMUNITY MEDICINE":"",
-    //     "Arab DERMATOLOGY":"",
-    //     "DIAGNOSTIC RADIOLOGY":"",
-    //     "EMERGENCY MEDICINE":"",
-    //     "FAMILY MEDICINE":"",
-    //     "FORENSIC MEDICINE":"",
-    //     "GASTROENTEROLOGY":"",
-    //     "GENERAL SURGERY":"",
-    //     "HAEMATOLOGY":"",
-    //     "HISTOPATHOLOGY":"",
-    //     "INTERNAL MEDICINE":"",
-    //     "MEDICINE":"",
-    //     "MICROBIOLOGY":"",
-    //     "Madical ONCOLOGY":"",
-    //     "NEPHROLOGY":"",
-    //     "NEUROLOGY":"",
-    //     "NUCLEAR MEDICINE":"",
-    //     "OBSTETRICS & GYNAECOLOGY":"",
-    //     "Operative DENTISRY":"",
-    //     "OPTHALMOLOGY":"",
-    //     "ORAL & MANILLO- FACIAL SURGERY":"",
-    //     "ORTHODONTICS":"",
-    //     "ORTHOPAEDIC Surgery":"",
-    //     "OTO- RHINO- LOGY ENT)":"",
-    //     "PAEDIATRIC SURGERY":"",
-    //     "PAEDIATRICS":"",
-    // }
+    },
+    speciality:{
+        ANAESTHESIOLOGY:"",
+        "CARDIAC SURGERY":"",
+        CARDIOLOGY:"",
+        "CHEMICAL PATHOLOGY":"",
+        "CLINICAL HAEMATOLOGY":"",
+        "COMMUNITY MEDICINE":"",
+        "Arab DERMATOLOGY":"",
+        "DIAGNOSTIC RADIOLOGY":"",
+        "EMERGENCY MEDICINE":"",
+        "FAMILY MEDICINE":"",
+        "FORENSIC MEDICINE":"",
+        "GASTROENTEROLOGY":"",
+        "GENERAL SURGERY":"",
+        "HAEMATOLOGY":"",
+        "HISTOPATHOLOGY":"",
+        "INTERNAL MEDICINE":"",
+        "MEDICINE":"",
+        "MICROBIOLOGY":"",
+        "Madical ONCOLOGY":"",
+        "NEPHROLOGY":"",
+        "NEUROLOGY":"",
+        "NUCLEAR MEDICINE":"",
+        "OBSTETRICS & GYNAECOLOGY":"",
+        "Operative DENTISRY":"",
+        "OPTHALMOLOGY":"",
+        "ORAL & MANILLO- FACIAL SURGERY":"",
+        "ORTHODONTICS":"",
+        "ORTHOPAEDIC Surgery":"",
+        "OTO- RHINO- LOGY ENT)":"",
+        "PAEDIATRIC SURGERY":"",
+        "PAEDIATRICS":"",
+    }
     // qualification:{MCPS:true,"hi you":true}
     // checkbox
     // userImresidencyDuration:'' // file picker for img 
@@ -98,9 +101,14 @@ const initialValueValidation={
     residencyDuration:false, // input type number
     workingPlace:false,
     yearOfEntry:false,
+    yoapgd:false,
     SCFHSpost:false,
     password:false,
+    transScript:false,
 
+    SCFHSresponse:false,
+
+    residencyDuration:false,
     gender:false, // radio button
     qualification :false
     // qualification:{
@@ -167,7 +175,8 @@ const reducerFunctionValidation=(state,action)=>{
 
 function Form(){
 
-    const selectOptions=['Green Acre','Lahore','BSC','B.TECH','M.TECH','B.COM','OTHER'];
+    const selectOptions=['Green Acre','Lahore','Karachi','Islamabaad','Multan','Naran','Peshawar'];
+  
 
     const [formData,dispatchFunction]=useReducer(reducerFunction,initialValue);
 
@@ -179,8 +188,8 @@ function Form(){
     const refObject=useRef({});
 
    
-    const {name,email,mobile,hospitalPost,residencyDuration,workingPlace ,gender,qualification,yearOfEntry ,speciality, SCFHSpost,password,
-         hashedPassword = bcrypt.hashSync(password, '$2a$10$CwTycUXWue0Thq9StjUM0u') ,
+    const {name,email,mobile,hospitalPost,residencyDuration,transScript,workingPlace,yoapgd ,SCFHSresponse,gender,qualification,yearOfEntry ,speciality, SCFHSpost,password,
+         hashedPassword = bcrypt.hashSync(password, '$2a$10$CwTycUXWue0Thq9StjUM0u') 
     
     
     } = formData;
@@ -197,7 +206,14 @@ function Form(){
 	},[])
 
     const updateCheckBox=useCallback((event)=>{
-        dispatchFunction({'name':'qualification','subName':event.target.name,value:!qualification[event.target.name]})
+       
+        setInvalidObject({name:event.target.name,value:false});
+		// dispatchFunction([{'name':event.target.name,'value':event.target.value}]);
+        dispatchFunction({'name':'qualification','subName':event.target.value,value:!qualification[event.target.name]})
+        // dispatchFunction({'name':'qualification','subName':event.target.value})
+     
+        
+
     },[qualification]);
     const updatespecialityBox=useCallback((event)=>{
         dispatchFunction({'name':'speciality','subName':event.target.name,value:!speciality[event.target.name]})
@@ -223,31 +239,54 @@ function Form(){
 
 
     }
-//name,email,mobile,hospitalPost,residencyDuration,workingPlace ,gender,qualification,yearOfEntry ,speciality, SCFHSpost
+
     const submitHandler=(event)=>{
 		event.preventDefault();
         // password= bcrypt.hashSync(password,10)
         clearFormFunction();
-        console.log(formData);
-        // axios
-        // // .post("http://localhost:5000/api/user/register", {
-        // .post("https://pakdoctorsksa.com/api/Users/SignUp", {
-        //   name:name,
-        //   email:email,
-        //   password:hashedPassword,
-        //   mobile:mobile,
-        //   hospitalPost:hospitalPost,
-        //   residencyDuration:residencyDuration,
-        //   workingPlace:workingPlace,
-        //   gender:gender,
-        //   qualification:qualification,
-        //   yearOfEntry:yearOfEntry,
-        //   speciality:speciality,
-        //   SCFHSpost:SCFHSpost
-        // })
-        // .then((resp) => console.log(resp))
-        // // .then(navigate("/login"))
-        // .catch((err) => console.log(err));
+      
+        // console.log("original", JSON.stringify(formData));
+
+        // window.location.reload()
+
+        formData.qualification =  Object.keys(formData.qualification).filter(z => formData.qualification[z] == true) 
+        formData.speciality =  Object.keys(formData.speciality).filter(z => formData.speciality[z] == true) 
+
+        console.log( formData);
+        console.log( formData.qualification.join());
+        console.log(formData.selectOptions);
+
+        axios
+        .post("https://pakdoctorsksa.com/api/Users/SignUp", {
+          name:name,
+          email:email,
+          password:hashedPassword,
+          mobile:mobile,
+          hospitalPost:hospitalPost,
+          residencyDuration:residencyDuration,
+          workingPlace:workingPlace,
+          HosNameCity:formData.selectOptions,
+          gender:gender,
+          transScript:transScript,
+          qualification: formData.qualification.join(),
+          yearOfEntry:yearOfEntry,
+          yoapgd:yoapgd,
+          SCFHSresponse:SCFHSresponse,
+          speciality: formData.speciality.join(),
+          SCFHSpost:SCFHSpost
+        },formData)
+
+        .then((resp) => console.log(resp))
+         .then( ()=>{
+        M.toast({html:"SIGNED UP successfully wait for Approval",classes:"#43a047 green darken-1"})
+
+        })
+
+        
+
+        
+      
+         .catch((err) => console.log(err));
 
     }
     
@@ -268,23 +307,19 @@ function Form(){
         }
     }
 
-    const [pjl, setPjl] = useState([])
-    const getPjl = (e) => {
-        let data = pjl
-        data.push(e.target.value)
-        setPjl(data)
-      }
+ 
     useEffect(()=>{
         window.addEventListener('mouseup',handleMouseEvent);
         return ()=> window.removeEventListener('mouseup',handleMouseEvent);
     },[handleMouseEvent])
     
-
+   
+      
     return(
         <form className='form-container' onSubmit={submitHandler}>
 
 
-            <FormSubContainer title="Name"  isRequired={true} invalid={invalidObject['name']}>
+            <FormSubContainer title="Name"  isRequired={true} >
                 <Input
                 placeholder='your name please'
                 type='text'
@@ -297,7 +332,7 @@ function Form(){
             </FormSubContainer>
 
 
-            <FormSubContainer title="Gender" isRequired={true} invalid={false}>
+            <FormSubContainer title="Gender" class="form-radio mt-10" isRequired={true} >
                 <RadioButton
                     title="Male"
                     value="Male"
@@ -314,57 +349,61 @@ function Form(){
                 />
             </FormSubContainer>
 
-            <FormSubContainer title="QUALIFICATIONS"  isRequired={true} invalid={false} >
+            <FormSubContainer title="QUALIFICATIONS"  isRequired={true} >
                 
          
+            {         
+                           
 
-           
+                    Object.keys(qualification).map((key,index)=>
+                        <CheckBox
+                            key={index}
+                            title={key}
+                            checked={qualification[key]==true}
+                            name={key}
+                            value={key}
+                            onChange={updateCheckBox}
+                            />
+                    )
+                            
+                }
+
+
                                    
-                                          <CheckBox
-                                          title="FCPS"
-                                          value="FCPS"
-                                          name="qualification"
-                                          checked={qualification.value}
-                                          onChange={updateFormData}
-                                      />
-                                      <CheckBox
-                                          title="MCPS"
-                                          value="MCPS"
-                                          checked={qualification.value}
-                                          name="qualification4"
-                                          onChange={updateFormData}
-                                      />
-                                       <CheckBox
-                                          title="Fellowship fromRoyal College of UK"
-                                          value="Fellowship fromRoyal College of UK"
-                                          checked={qualification.value}
-                                          name="qualification2"
-                                          onChange={updateFormData}
-                                      />
-                                       <CheckBox
-                                          title="England"
-                                          value="England"
-                                          checked={qualification.value}
-                                          name="qualification3"
-                                          onChange={updateFormData}
-                                      />
+                                
                                      
                 
             </FormSubContainer>
 
 
-        
+        <FormSubContainer title="Speciality">
+        {         
+                           
+
+                           Object.keys(speciality).map((key,index)=>
+                               <CheckBox
+                                   key={index}
+                                   title={key}
+                                   checked={speciality[key]==true}
+                                   name={key}
+                                   value={key}
+                                   onChange={updatespecialityBox}
+                                   />
+                           )
+                                   
+                       }
+        </FormSubContainer>
 
             <FormSubContainer title="YEARS OF ALL POST GRADUATION"
       
- isRequired={true} invalid={invalidObject['residencyDuration']}>
+ isRequired={true} invalid={invalidObject['yoapgd']}>
                 <Input
                 placeholder='Your Answer'
-                type='number'
-                name='residencyDuration'
-                value={residencyDuration}
+                type='text'
+                name='yoapgd'
+                value={yoapgd}
                 inputFocusEvent={inputFocusEvent}
-                inputRef={ref=> refObject.current['residencyDuration'] = ref}
+                inputRef={ref=> refObject.current['yoapgd'] = ref}
                 onChange={updateFormData}
                 />
             </FormSubContainer>
@@ -397,18 +436,7 @@ function Form(){
                  </FormSubContainer>
 
                            
-            <FormSubContainer title="YEAR of Entry in KSA."
-              isRequired={true} invalid={invalidObject['residencyDuration']}>
-                     <Input
-                     placeholder='Your Answer'
-                     type='text'
-                     name='yearOfEntry'
-                     value={yearOfEntry}
-                     inputFocusEvent={inputFocusEvent}
-                    //  inputRef={ref=> refObject.current['ksa'] = ref}
-                     onChange={updateFormData}
-                     />
-                 </FormSubContainer>
+       
              
                  <FormSubContainer title="POST IN HOSPITAL" isRequired={true} invalid={false}>
                 <RadioButton
@@ -457,7 +485,104 @@ function Form(){
 
 
 
+            <FormSubContainer title="YEAR of Entry in KSA."
+              isRequired={true} >
+                     <Input
+                     placeholder='Your Answer'
+                     type='text'
+                     name='yearOfEntry'
+                     value={yearOfEntry}
+                     inputFocusEvent={inputFocusEvent}
+                    //  inputRef={ref=> refObject.current['ksa'] = ref}
+                     onChange={updateFormData}
+                     />
+                 </FormSubContainer>
+             
+                 <FormSubContainer title="Residency Duration" isRequired={true} invalid={false}>
+                <RadioButton
+                    title="Three Years"
+                    value="Three Years"
+                    name="residencyDuration"
+                    checked={residencyDuration}
+                    onChange={updateFormData}
+                />
+                <RadioButton
+                    title="Four Years"
+                    value="Four Years"
+                    checked={residencyDuration}
+                    name="residencyDuration"
 
+                    onChange={updateFormData}
+                />
+                 <RadioButton
+                    title="Five Years"
+                    value="Five Years"
+                    checked={residencyDuration}
+                    name="Residency Duration"
+
+                    onChange={updateFormData}
+                />
+                
+            </FormSubContainer>
+
+                    
+        
+             
+                 <FormSubContainer title="What was the response of SCFHS about your application for Re Classification ? " isRequired={true} invalid={false}>
+                <RadioButton
+                    title="Not applied"
+                    value="Not applied"
+                    name="SCFHSresponse"
+                    checked={SCFHSresponse}
+                    onChange={updateFormData}
+                />
+                 <RadioButton
+                    title="Rejected"
+                    value="Rejected"
+                    name="SCFHSresponse"
+                    checked={SCFHSresponse}
+                    onChange={updateFormData}
+                />
+               <RadioButton
+                    title="No Reply"
+                    value="No Reply"
+                    name="SCFHSresponse"
+                    checked={SCFHSresponse}
+                    onChange={updateFormData}
+                />
+                  <RadioButton
+                    title="Accepted"
+                    value="Accepted"
+                    name="SCFHSresponse"
+                    checked={SCFHSresponse}
+                    onChange={updateFormData}
+                />
+                
+            </FormSubContainer>
+
+
+
+            <FormSubContainer title="Do you have  Transcript from CPSP ?" isRequired={true} invalid={false}>
+                <RadioButton
+                    title="Yes"
+                    value="Yes"
+                    name="transScript"
+                    checked={transScript}
+                    onChange={updateFormData}
+                />
+                 <RadioButton
+                    title="No"
+                    value="No"
+                    name="transScript"
+                    checked={transScript}
+                    onChange={updateFormData}
+                />
+              
+                
+            </FormSubContainer>
+
+
+               
            
              
                  <FormSubContainer title="POST IN SCFHSpost" isRequired={true} invalid={false}>
@@ -499,7 +624,7 @@ function Form(){
                
             </FormSubContainer>
              
-            <FormSubContainer title="E-mail Id"  isRequired={true} invalid={invalidObject['email']}>
+            <FormSubContainer title="E-mail Id"  isRequired={true} >
                 <Input
                 placeholder='your email-id please'
                 type='email'
@@ -523,7 +648,7 @@ function Form(){
                 />
             </FormSubContainer>
 
-            <FormSubContainer title="Mobile Number Saudi Local Contact 05......."  isRequired={true} invalid={invalidObject['mobile']}>
+            <FormSubContainer title="Mobile Number Saudi Local Contact 05......."  isRequired={true} >
                 <Input
                 placeholder='Your Answer'
                 type='number'
@@ -548,9 +673,9 @@ function Form(){
                 <Button type="button" classProp="clear-button" clickHandler={clearFormFunction}>
                     Clear Form
                 </Button>
-                <Button type="submit" disabled={
+                <Button type="submit"  classProp="button"  disabled={
                    !( name!=='' && email!=='' && mobile!=='' && hospitalPost!=='' && residencyDuration!=='' && gender!=='' )
-                } classProp="button">
+                } >
                     Submit
                 </Button>
             </div>

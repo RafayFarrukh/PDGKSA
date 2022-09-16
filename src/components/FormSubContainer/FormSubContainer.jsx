@@ -2,7 +2,7 @@ import React from 'react';
 import "./FormSubContainer.css";
 function FormSubContainer({children,title , isRequired,invalid}){
     return(
-        <div className={(isRequired && invalid) ?'form-sub-container form-sub-container-required' : 'form-sub-container'}>
+        <div className={(isRequired && invalid) ?'form-sub-container form-sub-container-required' : 'form-sub-container' } >
             <h2 className='form-sub-container-heading'>{title} { isRequired && <span className="required">*</span>}</h2>
             {children}
             {
