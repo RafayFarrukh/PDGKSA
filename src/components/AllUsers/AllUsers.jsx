@@ -1,6 +1,7 @@
 import React from 'react'
 import AuthCheck from '../AuthCheck/AuthCheck'
 import axios from "axios";
+import { ToastContainer,toast } from 'react-toastify'
 
 const AllUsers = () => {
   const [products, setProducts] = React.useState([]);
@@ -35,9 +36,11 @@ const AllUsers = () => {
   const Approve=(email)=>{
     axios
     .post("https://pakdoctorsksa.com/api/Users/ApproveRequest",{email})
-    window.reload()
+    toast.success('Successfully Approved',{position: toast.POSITION.TOP_RIGHT,autoClose: 2000  })
+    // window.location.reload(4000)
     console.log("request approved")
   }
+
   return (
     <AuthCheck>
     {/* <div>AllUsers</div> */}
@@ -45,59 +48,59 @@ const AllUsers = () => {
 
 
 
-<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+<table class="w-full  text-sm  text-gray-500 dark:text-gray-400 table-auto ">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" class="py-4 px-2 border ">
                     UserName
                 </th>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" class="py-4 px-2 border">
                     Email
                 </th>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" class="py-4 px-2 border">
                    Gender
                 </th>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" class="py-4 px-2 border">
                 yearOfEntry
                 </th>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" class="py-3 px-2 border">
                 Hospital Post
                 </th>
                 
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" class="py-3 px-2 border">
                    Working Place
                 </th>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" class="py-3 px-2 border">
                 SCFHSpost
                 </th>
                
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" class="py-3 px-2 border">
                 HosNameCity
                 </th>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" class="py-3 px-2 border">
                Mobile
                 </th>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" class="py-3 -px-2 border">
                qualifications
                 </th>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" class="py-3 px-2 border">
                 Year Of All Post Graduation
                 </th>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" class="py-3 px-2 border ">
                Specification
                 </th>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" class="py-3 px-2 border">
                 TransScript
                 </th>
                 
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" class="py-3 px-2 border">
                 SCFHSresponse
                 </th>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" class="py-3 px-2 border">
                 residencyDuration
                 </th>
                 
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" class="py-3 px-2 border">
                 Approve
                 </th>
             </tr>
@@ -113,42 +116,44 @@ const AllUsers = () => {
       <tbody>
       </tbody>
 
-        <tbody>
+        <tbody className='showtable w-20'>
           {products.map?.((user,index) => (
             <>
           
                        {console.log(user.qualification[0+1])}
-                      <tr  key={index} > 
+                      <tr  key={index} className="w-20 mt-10" > 
                                 
-                      <td className="py-4 px-6">{user.name}</td>
+                      <td className="py-4 px-2 border ">{user.name}</td>
 
-                      <td className="py-4 px-6">{user.email}</td>
-                      <td className="py-4 px-6">{user.gender}</td>
-                      <td className="py-4 px-6">{user.yearOfEntry}</td>
-                      <td className="py-4 px-6">{user.hospitalPost}</td>
-                      <td className="py-4 px-6">{user.workingPlace}</td>
-                      <td className="py-4 px-6">{user.SCFHSpost}</td>
-                      <td className="py-4 px-6">{user.HosNameCity}</td>
-                      <td className="py-4 px-6">{user.mobile}</td>
-                      <td className="py-4 px-6">{user.qualification}</td>
+                      <td className="py-4 px-2 border">{user.email}</td>
+                      <td className="py-4 px-2 border">{user.gender}</td>
+                      <td className="py-4 px-2 border">{user.yearOfEntry}</td>
+                      <td className="py-4 px-2 border">{user.hospitalPost}</td>
+                      <td className="py-4 px-2 border">{user.workingPlace}</td>
+                      <td className="py-4 px-2 border">{user.SCFHSpost}</td>
+                      <td className="py-4 px-2 border">{user.HosNameCity}</td>
+                      <td className="py-4 px-2 border">{user.mobile}</td>
+                      <td className="py-4 px-2 border">{user.qualification}</td>
                
 
-                      {/* <td className="py-4 px-6">{user.qualification[0]+user.qualification[1]+user.qualification[2]+user.qualification[3]+user.qualification[4]+user.qualification[5]}</td> */}
                      
-                      <td className="py-4 px-6">{user.yoapgd}</td>
-                      <td className="py-4 px-6">{user.speciality}</td>
-                      <td className="py-4 px-6">{user.transScript}</td>
-                      <td className="py-4 px-6">{user.SCFHSresponse}</td>
-                      <td className="py-4 px-6">{user.residencyDuration}</td>
+                      <td className="py-4 px-2 border">{user.yoapgd}</td>
+                      <td className="py-4 px-2 border ">{user.speciality}</td>
+                      <td className="py-4 px-2 border">{user.transScript}</td>
+                      <td className="py-4 px-2 border">{user.SCFHSresponse}</td>
+                      <td className="py-4 px-2 border">{user.residencyDuration}</td>
                       {user.status==1?(
                         <button  onClick={
                           ()=>{
+
                             Approve(user.email)
-                            console.log(user.email);
-                            console.log(user.status)
-                            window.location.reload()
+                            setTimeout(function(){
+                              window.location.reload();
+                           }, 2000);
                           }
-                          }
+
+                            }
+                          
                           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5">
                       Approve
                       </button>

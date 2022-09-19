@@ -1,0 +1,15 @@
+.speciality{
+    color: red;
+}
+tbody.speciality{
+
+}
+.showtable.speciality{
+    color: red;
+}
+tbody.showtable.speciality{
+    color: red;
+}
+tbody.tr.td.speciality{
+    color: red;
+}

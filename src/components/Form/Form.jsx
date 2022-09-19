@@ -8,6 +8,8 @@ import M from 'materialize-css'
 import Select from '../Select/Select';
 import bcrypt from 'bcryptjs'
 import "./Form.css";
+import { ToastContainer,toast } from 'react-toastify'
+
 import { FormControlLabel, Checkbox} from '@mui/material';
 import axios from 'axios'
 const salt = bcrypt.genSaltSync(10)
@@ -40,8 +42,8 @@ const initialValue={
     SCFHSresponse:"",
     residencyDuration:"",
     qualification:{
-        "FCPS":'',
-        "MCPS":'',
+        FCPS:'',
+        MCPS:'',
         "Fellowship from Royal College of UK":"",
         "Fellowship from Royal College of Ireland":"",
         "Membership from Royal College of UK":"",
@@ -207,10 +209,9 @@ function Form(){
 
     const updateCheckBox=useCallback((event)=>{
        
-        setInvalidObject({name:event.target.name,value:false});
-		// dispatchFunction([{'name':event.target.name,'value':event.target.value}]);
+	
         dispatchFunction({'name':'qualification','subName':event.target.value,value:!qualification[event.target.name]})
-        // dispatchFunction({'name':'qualification','subName':event.target.value})
+        
      
         
 
@@ -252,9 +253,9 @@ function Form(){
         formData.qualification =  Object.keys(formData.qualification).filter(z => formData.qualification[z] == true) 
         formData.speciality =  Object.keys(formData.speciality).filter(z => formData.speciality[z] == true) 
 
-        console.log( formData);
-        console.log( formData.qualification.join());
-        console.log(formData.selectOptions);
+        // console.log( formData);
+        // console.log( formData.qualification.join());
+        // console.log(formData.selectOptions);
 
         axios
         .post("https://pakdoctorsksa.com/api/Users/SignUp", {
@@ -275,18 +276,48 @@ function Form(){
           speciality: formData.speciality.join(),
           SCFHSpost:SCFHSpost
         },formData)
+        
+      
 
-        .then((resp) => console.log(resp))
-         .then( ()=>{
-        M.toast({html:"SIGNED UP successfully wait for Approval",classes:"#43a047 green darken-1"})
+       
+        .then( (resp)=>{
+         
+            console.log(resp.data.success)
 
+           
+            if(resp.data.success==true){
+
+                toast.success('Successfully  SignedUp',{position: toast.POSITION.TOP_RIGHT,autoClose: 1500})
+            }
+            else if(resp.data.success==false){
+                toast.error('A user with this email already exists',{position: toast.POSITION.TOP_RIGHT ,autoClose: 1500})
+
+            }
+               setTimeout(function(){
+                window.location.reload();
+             }, 1500);
+                
+         
+            
+            
+            
         })
-
+        
+       
         
 
         
       
-         .catch((err) => console.log(err));
+        .catch((err) => {
+          
+            
+          
+            // setTimeout(function(){
+            //     window.location.reload();
+            //  }, 2000);
+         
+         
+         });
 
     }
     
@@ -518,7 +549,7 @@ function Form(){
                     title="Five Years"
                     value="Five Years"
                     checked={residencyDuration}
-                    name="Residency Duration"
+                    name="residencyDuration"
 
                     onChange={updateFormData}
                 />
@@ -674,13 +705,14 @@ function Form(){
                     Clear Form
                 </Button>
                 <Button type="submit"  classProp="button"  disabled={
-                   !( name!=='' && email!=='' && mobile!=='' && hospitalPost!=='' && residencyDuration!=='' && gender!=='' )
+                   !( name!=='' && email!=='' && mobile!=='' && hospitalPost!=='' && residencyDuration!=='' && gender!=='' && transScript!=='' && password!==''  && workingPlace!=='' && SCFHSresponse!=='' && speciality!=='' && password!=='' && SCFHSpost!=='' && yoapgd!=='')
                 } >
                     Submit
                 </Button>
             </div>
         </form>
     )
+    //name,email,mobile,hospitalPost,residencyDuration,transScript,workingPlace,yoapgd ,SCFHSresponse,gender,qualification,yearOfEntry ,speciality, SCFHSpost,password
 }
 
 export default React.memo(Form)

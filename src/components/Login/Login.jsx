@@ -3,10 +3,12 @@ import LockIcon from "@mui/icons-material/Lock";
 import EmailIcon from "@mui/icons-material/Email";
 import { useState } from "react";
 import bcrypt from 'bcryptjs'
-import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer,toast } from 'react-toastify'
+import "react-toastify/dist/ReactToastify.css";
 import M from 'materialize-css'
 import axios from "axios";
-import 'react-toastify/dist/ReactToastify.css'
+
 import { useNavigate } from "react-router-dom";
 const Login = () => {
   const navigate = useNavigate();
@@ -17,6 +19,10 @@ const Login = () => {
 
    const  hashedPassword = bcrypt.hashSync(password, '$2a$10$CwTycUXWue0Thq9StjUM0u') 
   
+// const toast=()=>{
+//   toast('basic',{position: toast.POSITION.TOP_LEFT})
+// }
+
   const handleSubmit =  (e) => {
     
     e.preventDefault();
@@ -31,27 +37,20 @@ const Login = () => {
       })
       .then((resp) => {
         localStorage.setItem("User", resp.data.data.data,);
-/* Example */
-toast.success("login succesfully",{
-  position:"top-right"
-})
 
-        // M.toast({html:"signedin success",classes:"#43a047 green darken-1"})
         navigate("/AllUsers");
 
         console.log(resp.data);
-      if(resp.data){
-        // "success"="false"
-      }
+    
       })
       .then(()=>{
+        toast.success('Successfully Logged in',{position: toast.POSITION.TOP_RIGHT,autoClose: 2000})
       })
       .catch((err) => {
         
-   
-        M.toast({html: "Error in Logging in",classes:"#c62828 red darken-3"})
-        // err.response.data.msg && setError(err.response.data.msg);
-        // console.log(err);
+         toast.error('Wrong Credentials',{position: toast.POSITION.TOP_RIGHT,autoClose: 2000})
+      
+      
       });
   };
   return (
@@ -70,7 +69,6 @@ toast.success("login succesfully",{
               </h1>
               <form method="POST" action="" onSubmit={handleSubmit}>
 
-            
                 <label className="block mb-6">
               <EmailIcon />
                   <span className="text-gray-700 ml-2 font-bold">
@@ -128,6 +126,7 @@ toast.success("login succesfully",{
                 <div className="mb-6">
                   <button
                     type="submit"
+                 
                     className="
             h-10
             px-5

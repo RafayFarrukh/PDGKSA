@@ -5,6 +5,7 @@ import NavBar from "./components/NavBar/NavBar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./components/Login/Login";
 import AllUsers from "./components/AllUsers/AllUsers";
+import { ToastContainer,toast } from 'react-toastify'
 const navBarModel={
   title:"Forms",
   iconClass:'',
@@ -45,6 +46,7 @@ function App() {
     <Footer imgSrc = {navBarModel.imgSrc}/>
 
     </BrowserRouter>
+    <ToastContainer  position="top-right"  />
   </>
   );
 }

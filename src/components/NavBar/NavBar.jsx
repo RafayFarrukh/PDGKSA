@@ -5,10 +5,14 @@ import Login from '../Login'
 import "./NavBar.css";
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer,toast } from 'react-toastify'
 
 function NavBar({title,iconClass,imgSrc,navButtonList}){
   const navigate = useNavigate();
-  
+  const logouttoast=()=>{
+    toast.success('Successfully Logged Out',{position: toast.POSITION.TOP_RIGHT,autoClose: 1500})
+
+  }
     return(
         <>
           
@@ -34,8 +38,10 @@ function NavBar({title,iconClass,imgSrc,navButtonList}){
                     onClick={(e) => {
                       e.preventDefault();
                       localStorage.removeItem("User");
-                      window.location.reload("/");
-                     navigate("/")
+                      // window.location.reload("/");
+                     navigate("/login")
+                     logouttoast()
+
                     }}
                   >
                     Logout
