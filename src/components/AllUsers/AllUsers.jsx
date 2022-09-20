@@ -48,8 +48,8 @@ const AllUsers = () => {
 
 
 
-<table class="w-full  text-sm  text-gray-500 dark:text-gray-400 table-auto ">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+<table class="w-full  text-xs  text-gray-500 dark:text-blue-400 table-auto ">
+        <thead class="text-xs text-gray-700  bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="py-4 px-2 border ">
                     UserName
@@ -105,27 +105,17 @@ const AllUsers = () => {
                 </th>
             </tr>
         </thead>
-        <tbody>
+        <tbody className='text-xs bg-red-900' >
                
-       
-            
-  
-        </tbody>
-      
-
-      <tbody>
-      </tbody>
-
-        <tbody className='showtable w-20'>
-          {products.map?.((user,index) => (
+        {products.map?.((user,index) => (
             <>
           
                        {console.log(user.qualification[0+1])}
                       <tr  key={index} className="w-20 mt-10" > 
                                 
                       <td className="py-4 px-2 border ">{user.name}</td>
-
                       <td className="py-4 px-2 border">{user.email}</td>
+
                       <td className="py-4 px-2 border">{user.gender}</td>
                       <td className="py-4 px-2 border">{user.yearOfEntry}</td>
                       <td className="py-4 px-2 border">{user.hospitalPost}</td>
@@ -164,6 +154,15 @@ const AllUsers = () => {
                       
             </>
           ))}
+            
+  
+        </tbody>
+      
+
+    
+
+        <tbody className='showtable w-20'>
+        
         </tbody>
     </table>
 
