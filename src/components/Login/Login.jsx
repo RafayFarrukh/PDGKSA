@@ -36,20 +36,28 @@ const Login = () => {
         password: hashedPassword,
       })
       .then((resp) => {
+      
+     
+
+
+
+
         localStorage.setItem("User", resp.data.data.data,);
 
         navigate("/AllUsers");
 
-        console.log(resp.data);
+        console.log(resp.data.data);
+    
+    
+      toast.success('Successfully Logged in',{position: toast.POSITION.TOP_RIGHT,autoClose: 2000})
     
       })
-      .then(()=>{
-        toast.success('Successfully Logged in',{position: toast.POSITION.TOP_RIGHT,autoClose: 2000})
-      })
-      .catch((err) => {
-        
-         toast.error('Wrong Credentials',{position: toast.POSITION.TOP_RIGHT,autoClose: 2000})
-      
+     
+      .catch((resp) => {
+      console.log(resp);
+    toast.error('Wrong Credentials',{position: toast.POSITION.TOP_RIGHT,autoClose: 2000})
+  
+       
       
       });
   };
@@ -142,7 +150,7 @@ const Login = () => {
                   >
                     Login
                   </button>
-                  {error && <div >{error}</div>}
+               
                 </div>
               </form>
             </div>

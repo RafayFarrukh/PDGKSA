@@ -6,13 +6,39 @@ import "./NavBar.css";
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer,toast } from 'react-toastify'
-
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 function NavBar({title,iconClass,imgSrc,navButtonList}){
   const navigate = useNavigate();
   const logouttoast=()=>{
     toast.success('Successfully Logged Out',{position: toast.POSITION.TOP_RIGHT,autoClose: 1500})
 
   }
+  const submit = () => {
+    confirmAlert({
+        title: "Confirm to Logout",
+        message: "Are you sure you want to logout.",
+        buttons: [
+          {
+            label: "Yes",
+            onClick: (e) => {
+             
+              // e.preventDefault();
+                localStorage.removeItem("User");
+                // window.location.reload("/");
+               navigate("/login")
+               logouttoast()
+          }
+          },
+          {
+            label: "No",
+            onClick: () =>{}
+    
+          }
+        ]
+      });
+    
+      }
     return(
         <>
           
@@ -35,6 +61,7 @@ function NavBar({title,iconClass,imgSrc,navButtonList}){
                   <a
                   className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                     href=""
+                   
                     onClick={(e) => {
                       e.preventDefault();
                       localStorage.removeItem("User");
