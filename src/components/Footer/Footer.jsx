@@ -37,6 +37,9 @@ function Footer({imgSrc}) {
             <div className="footer-copy-right-holder">
                 <h3 className="footer-copy-right">@2022 Forms. All rights reserved.</h3>
             </div> */}
+               <div className="">
+                <h3 className="footer-copy-right flex justify-center items-center">@2022  All rights reserved.</h3>
+            </div>
         </div>
     )
 }

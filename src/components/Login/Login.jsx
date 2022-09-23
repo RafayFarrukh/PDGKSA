@@ -12,7 +12,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const Login = () => {
   const navigate = useNavigate();
-  const [error, setError] = useState("");
+
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
  
@@ -38,15 +38,26 @@ const Login = () => {
       .then((resp) => {
       
      
+        
 
+console.log(resp.data.success);
+console.log(resp.data.message);
+// if (resp.data.message=="Your application is still under review. You will be able to login once your request gets approved.") {
+//   toast.warning(resp.data.message,{position: toast.POSITION.TOP_RIGHT,autoClose: 2000})
+// }
+// else if(resp.data.message=="Invalid username and/or password") { 
+//   toast.error(resp.data.message,{position: toast.POSITION.TOP_RIGHT,autoClose: 2000})
+// }
 
-
+  if (resp.data.success==false) {
+    toast.error(resp.data.message,{position: toast.POSITION.TOP_RIGHT,autoClose: 2000})
+  }
 
         localStorage.setItem("User", resp.data.data.data,);
 
         navigate("/AllUsers");
 
-        console.log(resp.data.data);
+        // console.log(resp.data.data);
     
     
       toast.success('Successfully Logged in',{position: toast.POSITION.TOP_RIGHT,autoClose: 2000})
@@ -55,7 +66,6 @@ const Login = () => {
      
       .catch((resp) => {
       console.log(resp);
-    toast.error('Wrong Credentials',{position: toast.POSITION.TOP_RIGHT,autoClose: 2000})
   
        
       
@@ -64,8 +74,8 @@ const Login = () => {
   return (
     <>
       <div className="">
-        <div className="mt-24 ">
-          <div className="w-full md:w-96 md:max-w-full mx-auto shadow-lg">
+        <div className="mt-24">
+          <div className="w-full md:w-96 md:max-w-full mx-auto shadow-lg mb-72">
             <div className="p-6  border-gray-300 sm:rounded-md">
               <h1 className="text-center font-semibold text-3xl lg:text-4xl text-gray-800 mb-12 mr-20">
                 {/* <img
@@ -150,7 +160,7 @@ const Login = () => {
                   >
                     Login
                   </button>
-               
+              
                 </div>
               </form>
             </div>

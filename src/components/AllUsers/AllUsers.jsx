@@ -80,9 +80,9 @@ confirmAlert({
     {/* <div>AllUsers</div> */}
    
 
+<div className=''>
 
-
-<table class="w-full  text-xs  text-gray-500 dark:text-gray-400 table-auto ">
+<table class="w-full  text-xs  text-gray-500 dark:text-gray-400 table-auto  ">
         <thead class="text-xs text-gray-700  bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="py-4 px-2 border ">
@@ -95,7 +95,7 @@ confirmAlert({
                    Gender
                 </th>
                 <th scope="col" class="py-4 px-2 border">
-                yearOfEntry
+                Year Of Entry
                 </th>
                 <th scope="col" class="py-3 px-2 border">
                 Hospital Post
@@ -105,17 +105,17 @@ confirmAlert({
                    Working Place
                 </th>
                 <th scope="col" class="py-3 px-2 border">
-                SCFHSpost
+                SCFHS Post
                 </th>
                
                 <th scope="col" class="py-3 px-2 border">
-                HosNameCity
+                Hospital name with City
                 </th>
                 <th scope="col" class="py-3 px-2 border">
                Mobile
                 </th>
                 <th scope="col" class="py-3 -px-2 border">
-               qualifications
+               Qualifications
                 </th>
                 <th scope="col" class="py-3 px-2 border">
                 Year Of All Post Graduation
@@ -128,10 +128,10 @@ confirmAlert({
                 </th>
                 
                 <th scope="col" class="py-3 px-2 border">
-                SCFHSresponse
+                SCFHS Response
                 </th>
                 <th scope="col" class="py-3 px-2 border">
-                residencyDuration
+                Residency Duration
                 </th>
                 
                 <th scope="col" class="py-3 px-2 border">
@@ -169,66 +169,51 @@ confirmAlert({
                       <td className="py-4 px-2 border">{user.mobile}</td>
 
                  {/* <td className="py-4 px-2 border">{user.qualification}</td> */}
-                 <td className="py-4 px-2 border">{user.qualification.split(",").join("\n")  }</td>
-                        {console.log( user.qualification.split(",").join("\n"))}
+                 {/* <td className="py-4 px-2 border" style={{whiteSpace: "pre-wrap"}}>{user.qualification.split(",").join("\n")  }</td> */}
+                        {/* {console.log( user.qualification.split(",").join("\n"))} */}
+                        <td className="py-4 px-2 border"  style={{whiteSpace: "pre-wrap"}}>{user.qualification.replace(/,/g,'\n')}</td>
              
                
 
                      
                       <td className="py-4 px-2 border">{user.yoapgd}</td>
-                      <td className="py-4 px-2 border ">{user.speciality.split(",").join("\n")}</td>
-                      {/* {console.log( user.speciality.split(",").join("\n"))} */}
+                      <td className="py-4 px-2 border"  style={{whiteSpace: "pre-wrap"}}>{user.speciality.replace(/,/g,'\n') }</td>
                       <td className="py-4 px-2 border">{user.transScript}</td>
                       <td className="py-4 px-2 border">{user.SCFHSresponse}</td>
                       <td className="py-4 px-2 border">{user.residencyDuration}</td>
-                        {/* {console.log(user.role)} */}
 
                         <td className="py-4 px-2 border">  {
-
-                        
-                        user.status==1  && user.role==1 ?  (
-                          <button onClick={
+ 
+                            user.status==1&&user.role==1 ?(
+                               <button onClick={
                             ()=>{
                               submit(user.email)
                             }
                           } class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5"> Approve</button>
-                        ):(
+                         )
+                       
+                         : user.role==2 && user.status==2?(
                           <div  class="font-serif font-bold mt-5 text-blue-800">Approved</div>
-                        )
-                      }</td>
-                      {/* {
-                        
-                        user.status==1  ?  (
-                          <button onClick={
-                            ()=>{
-                              submit(user.email)
-                            }
-                          } class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5"> Approve</button>
-                        ):(
+                         ) 
+                         : user.status==2?(
                           <div  class="font-serif font-bold mt-5 text-blue-800">Approved</div>
-                        )
-                      } */}
-                      {/* {user.status==1?(
-                        <>
-                        <button  onClick={
-                          ()=>{
+                         )        
+                         : <div  >Not  Approved</div>         
 
-                            Approve(user.email)
-                            setTimeout(function(){
-                              window.location.reload();
-                           }, 2000);
-                          }
 
-                            }
-                          
-                          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5">
-                      Approve
-                      </button>
-              
-                      </>
-                                )  :(
-                                  <div  class="font-serif font-bold mt-5 text-blue-800">Approved</div>
-                                )}   */}
+                        // user.status==1   ?  (
+                        //   <button onClick={
+                        //     ()=>{
+                        //       submit(user.email)
+                        //     }
+                        //   } class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5"> Approve</button>
+                        // ):(
+                        //   <div  class="font-serif font-bold mt-5 text-blue-800">Approved</div>
+                        // )
+                      }
+                      </td>
+                     
+
                       </tr>
                       
             </>
@@ -238,13 +223,13 @@ confirmAlert({
     </table>
 
 
+       <div className='mb-72 '></div>
 
 
 
 
 
-
-
+    </div>
 
          
     </AuthCheck>
