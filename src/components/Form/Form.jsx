@@ -112,7 +112,7 @@ const initialValueValidation={
 
     residencyDuration:false,
     gender:false, // radio button
-    qualification :false
+    qualification :false,
     // qualification:{
     //     FCPS:false,
     //     MCPS:false,
@@ -175,7 +175,29 @@ const reducerFunctionValidation=(state,action)=>{
 
 
 
-function Form(){
+function Form(props){
+    if(props.editing){
+        console.log("congo editing")
+    //   setUser(props.currentUser);
+      }
+    useEffect(
+        () => {
+         
+         
+          },
+        
+        [props]
+      );
+        
+      const handleInputChangeEdit = event => {
+        const { name, value } = event.target;
+        setUser({ [name]: value });
+      };
+      const [user, setUser] = useState((props.editing?(props.currentUser):(initialValue)));
+      const seteditfalse=()=>{
+        props.setEditing(false)
+        
+      }
 
     const selectOptions=['Green Acre','Lahore','Karachi','Islamabaad','Multan','Naran','Peshawar'];
   
@@ -253,73 +275,70 @@ function Form(){
         formData.qualification =  Object.keys(formData.qualification).filter(z => formData.qualification[z] == true) 
         formData.speciality =  Object.keys(formData.speciality).filter(z => formData.speciality[z] == true) 
 
-        // console.log( formData);
+        console.log( formData);
         // console.log( formData.qualification.join());
-        // console.log(formData.selectOptions);
+        console.log( formData.qualification.toString().replace(/,/g,', '));
+    //  console.log(form)
 
-        axios
-        .post("https://pakdoctorsksa.com/api/Users/SignUp", {
-          name:name,
-          email:email,
-          password:hashedPassword,
-          mobile:mobile,
-          hospitalPost:hospitalPost,
-          residencyDuration:residencyDuration,
-          workingPlace:workingPlace,
-          HosNameCity:formData.selectOptions,
-          gender:gender,
-          transScript:transScript,
-          qualification: formData.qualification.join(),
-          yearOfEntry:yearOfEntry,
-          yoapgd:yoapgd,
-          SCFHSresponse:SCFHSresponse,
-          speciality: formData.speciality.join(),
-          SCFHSpost:SCFHSpost
-        },formData)
+        // axios
+        // .post("https://pakdoctorsksa.com/api/Users/SignUp", {
+        //   name:name,
+        //   email:email,
+        //   password:hashedPassword,
+        //   mobile:mobile,
+        //   hospitalPost:hospitalPost,
+        //   residencyDuration:residencyDuration,
+        //   workingPlace:workingPlace,
+        //   HosNameCity:formData.selectOptions,
+        //   gender:gender,
+        //   transScript:transScript,
+        //   qualification: formData.qualification.toString().replace(/,/g,', '),
+        //   yearOfEntry:yearOfEntry,
+        //   yoapgd:yoapgd,
+        //   SCFHSresponse:SCFHSresponse,
+        //   speciality: formData.speciality.toString().replace(/,/g,', '),
+        //   SCFHSpost:SCFHSpost
+        // },formData)
         
       
 
        
-        .then( (resp)=>{
+        // .then( (resp)=>{
          
-            console.log(resp.data.success)
+        //     console.log(resp.data.success)
 
            
-            if(resp.data.success==true){
+        //     if(resp.data.success==true){
 
-                toast.success('Successfully  SignedUp',{position: toast.POSITION.TOP_RIGHT,autoClose: 1500})
-            }
-            else if(resp.data.success==false){
-                toast.error('A user with this email already exists',{position: toast.POSITION.TOP_RIGHT ,autoClose: 1500})
+        //         toast.success('Successfully  SignedUp',{position: toast.POSITION.TOP_RIGHT,autoClose: 1500})
+        //     }
+        //     else if(resp.data.success==false){
+        //         toast.error('A user with this email already exists',{position: toast.POSITION.TOP_RIGHT ,autoClose: 1500})
 
-            }
-               setTimeout(function(){
-                window.location.reload();
-             }, 1500);
+        //     }
+        //        setTimeout(function(){
+        //         window.location.reload();
+        //      }, 1500);
                 
          
             
             
             
-        })
+        // })
         
        
         
 
         
       
-        .catch((err) => {
+        // .catch((err) => {
           
             
           
-            // setTimeout(function(){
-            //     window.location.reload();
-            //  }, 2000);
          
-         
-         });
+        //  });
 
-    }
+     }
     
     
 
@@ -346,7 +365,7 @@ function Form(){
     
    
       
-    return(
+    return( 
         <form className='form-container' onSubmit={submitHandler}>
 
 
@@ -359,6 +378,13 @@ function Form(){
                 inputFocusEvent={inputFocusEvent}
                 inputRef={ref=> refObject.current['name'] = ref}
                 onChange={updateFormData}
+                // onChange={(props.editing?(handleInputChangeEdit):
+                //     (
+                //       updateFormData
+                //     )
+                    
+                    
+                //     )}
                 />
             </FormSubContainer>
 

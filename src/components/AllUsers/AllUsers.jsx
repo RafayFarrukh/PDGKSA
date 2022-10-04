@@ -6,7 +6,7 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { useNavigate } from "react-router-dom";
 
-const AllUsers = () => {
+const AllUsers = (props) => {
   const [products, setProducts] = React.useState([]);
   const navigate = useNavigate();
 
@@ -47,6 +47,15 @@ const AllUsers = () => {
   //   // window.location.reload(4000)
   //   console.log("request approved")
   // }
+           
+
+         const edit=()=>{
+          console.log("Edit this row");
+         }
+
+
+
+
 
   const submit = (email) => {
 confirmAlert({
@@ -74,6 +83,14 @@ confirmAlert({
 
   }
 
+
+  
+    const Status = localStorage.getItem('Status');
+    const Role = localStorage.getItem('Role');
+  
+      
+    
+ 
   
   return (
     <AuthCheck>
@@ -114,7 +131,7 @@ confirmAlert({
                 <th scope="col" class="py-3 px-2 border">
                Mobile
                 </th>
-                <th scope="col" class="py-3 -px-2 border">
+                <th scope="col" class="py-3 -px-5 border" >
                Qualifications
                 </th>
                 <th scope="col" class="py-3 px-2 border">
@@ -150,41 +167,41 @@ confirmAlert({
       <tbody>
       </tbody>
      
-        <tbody className='showtable w-20'>
+        <tbody className='showtable w-20 '>
           {products.map((user,index) => (
             <>
           
                       
-                      <tr  key={index} className="w-20 mt-10" > 
+                      <tr  key={index} className="w-20 mt-10 " > 
                                 
                       <td className="py-4 px-2 border ">{user.name}</td>
 
-                      <td className="py-4 px-2 border">{user.email}</td>
+                      <td className="py-4 px-2 border">{user.email}</td> 
                       <td className="py-4 px-2 border">{user.gender}</td>
                       <td className="py-4 px-2 border">{user.yearOfEntry}</td>
                       <td className="py-4 px-2 border">{user.hospitalPost}</td>
                       <td className="py-4 px-2 border">{user.workingPlace}</td>
                       <td className="py-4 px-2 border">{user.SCFHSpost}</td>
                       <td className="py-4 px-2 border">{user.HosNameCity}</td>
-                      <td className="py-4 px-2 border">{user.mobile}</td>
+                      <td className="py-4 px-2 border">{user.mobile}</td> 
 
                  {/* <td className="py-4 px-2 border">{user.qualification}</td> */}
                  {/* <td className="py-4 px-2 border" style={{whiteSpace: "pre-wrap"}}>{user.qualification.split(",").join("\n")  }</td> */}
                         {/* {console.log( user.qualification.split(",").join("\n"))} */}
-                        <td className="py-4 px-2 border"  style={{whiteSpace: "pre-wrap"}}>{user.qualification.replace(/,/g,'\n')}</td>
-             
+           
+            <td  className="py-4 px-2  w-2/12"  style={{whiteSpace: "pre-wrap"}}  >{user.qualification.replace(/, /g,',\n') }</td>
                
 
                      
                       <td className="py-4 px-2 border">{user.yoapgd}</td>
-                      <td className="py-4 px-2 border"  style={{whiteSpace: "pre-wrap"}}>{user.speciality.replace(/,/g,'\n') }</td>
+                      <td className="py-4 px-2 border"  style={{whiteSpace: "pre-wrap"}}  >{user.speciality.replace(/, /g,',\n') }</td>
                       <td className="py-4 px-2 border">{user.transScript}</td>
                       <td className="py-4 px-2 border">{user.SCFHSresponse}</td>
                       <td className="py-4 px-2 border">{user.residencyDuration}</td>
 
                         <td className="py-4 px-2 border">  {
- 
-                            user.status==1&&user.role==1 ?(
+                         
+                            (user.status==1&&user.role==1)&& Status==2&&Role==1?(
                                <button onClick={
                             ()=>{
                               submit(user.email)
@@ -192,25 +209,33 @@ confirmAlert({
                           } class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5"> Approve</button>
                          )
                        
-                         : user.role==2 && user.status==2?(
-                          <div  class="font-serif font-bold mt-5 text-blue-800">Approved</div>
-                         ) 
+                        //  : user.role==2 && user.status==2?(
+                        //   <div  class="font-serif font-bold mt-5 text-blue-800">Approved</div>
+                        //  ) 
                          : user.status==2?(
                           <div  class="font-serif font-bold mt-5 text-blue-800">Approved</div>
-                         )        
-                         : <div  >Not  Approved</div>         
+                         )
+                        //  : user.status==1&&user.role==2?(
+                        //   <div  class="font-serif font-bold mt-5 text-blue-800">Approve</div>
+                        //  )
+                         : Status==1&&Role==2?(
+                          <div  class="font-serif font-bold mt-5 text-blue-800">Approve</div>
+                         )              
+                         : <div  >Approve</div>         
 
+          
+                      
+                             
+                      
 
-                        // user.status==1   ?  (
-                        //   <button onClick={
-                        //     ()=>{
-                        //       submit(user.email)
-                        //     }
-                        //   } class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5"> Approve</button>
-                        // ):(
-                        //   <div  class="font-serif font-bold mt-5 text-blue-800">Approved</div>
-                        // )
                       }
+                      {  <button onClick={() => 
+                          navigate("/")&&
+                        props.editRow(user)
+                        }  class="bg-blue-500 mt-5 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+                        Edit
+                      </button>}
+                      
                       </td>
                      
 

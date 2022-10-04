@@ -40,8 +40,7 @@ const Login = () => {
      
         
 
-console.log(resp.data.success);
-console.log(resp.data.message);
+
 // if (resp.data.message=="Your application is still under review. You will be able to login once your request gets approved.") {
 //   toast.warning(resp.data.message,{position: toast.POSITION.TOP_RIGHT,autoClose: 2000})
 // }
@@ -54,6 +53,9 @@ console.log(resp.data.message);
   }
 
         localStorage.setItem("User", resp.data.data.data,);
+        localStorage.setItem("Status", resp.data.data.status,);
+        localStorage.setItem("Role", resp.data.data.role,);
+       console.log( resp.data.data.status,);
 
         navigate("/AllUsers");
 
