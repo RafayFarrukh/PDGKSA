@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer,toast } from 'react-toastify'
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-function NavBar({title,iconClass,imgSrc,navButtonList}){
+function NavBar(props){
   const navigate = useNavigate();
   const logouttoast=()=>{
     toast.success('Successfully Logged Out',{position: toast.POSITION.TOP_RIGHT,autoClose: 1500})
@@ -68,6 +68,7 @@ function NavBar({title,iconClass,imgSrc,navButtonList}){
                       // window.location.reload("/");
                      navigate("/login")
                      logouttoast()
+                     props.setEditing(false)
 
                     }}
                   >

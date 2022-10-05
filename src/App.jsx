@@ -93,7 +93,9 @@ function App() {
 
   const editRow = user => {
     setEditing(true);
-    setCurrentUser({ id: user.id, name: user.name, email:user.email,DOB:user.DOB,Address:user.Address,NIC:user.NIC,Gender:user.Gender });
+    setCurrentUser({ name:user.name,email:user.email,mobile:user.mobile,hospitalPost:user.hospitalPost,residencyDuration:user.residencyDuration,transScript:user.transScript,workingPlace:user.workingPlace,yoapgd:user.yoapgd ,SCFHSresponse:user.SCFHSresponse,gender:user.gender,yearOfEntry:user.yearOfEntry,password:user.password,SCFHSpost:user.SCFHSpost,speciality:user.speciality,qualification:user.qualification });
+    // ,gender,qualification,yearOfEntry ,speciality, SCFHSpost,password,
+    console.log("hello g")
   };
 
   const updateUser = (id, updateUser) => {

@@ -12,6 +12,7 @@ import { ToastContainer,toast } from 'react-toastify'
 
 import { FormControlLabel, Checkbox} from '@mui/material';
 import axios from 'axios'
+import { keys } from '@mui/system';
 const salt = bcrypt.genSaltSync(10)
 
 const reducerFunction=(state,action)=>{
@@ -176,23 +177,24 @@ const reducerFunctionValidation=(state,action)=>{
 
 
 function Form(props){
-    if(props.editing){
-        console.log("congo editing")
-    //   setUser(props.currentUser);
-      }
+   
     useEffect(
         () => {
          
-         
+          if(props.editing){
+          setUser(props.currentUser);
+          console.log(props.currentUser)
+          console.log("editing begin");
+          }
           },
         
         [props]
       );
         
-      const handleInputChangeEdit = event => {
-        const { name, value } = event.target;
-        setUser({ [name]: value });
-      };
+    //   const handleInputChangeEdit = event => {
+    //     const { name, value } = event.target;
+    //     setUser({ [name]: value });
+    //   };
       const [user, setUser] = useState((props.editing?(props.currentUser):(initialValue)));
       const seteditfalse=()=>{
         props.setEditing(false)
@@ -265,6 +267,13 @@ function Form(props){
 
     const submitHandler=(event)=>{
 		event.preventDefault();
+        if(props.editing){
+         
+            console.log("form editing")
+              setUser(initialValue);
+           
+            //   props.updateUser(user.id, user);
+          }
         // password= bcrypt.hashSync(password,10)
         clearFormFunction();
       
@@ -366,7 +375,7 @@ function Form(props){
    
       
     return( 
-        <form className='form-container' onSubmit={submitHandler}>
+        <form className='form-container' onSubmit={submitHandler} >
 
 
             <FormSubContainer title="Name"  isRequired={true} >
@@ -374,9 +383,10 @@ function Form(props){
                 placeholder='your name please'
                 type='text'
                 name='name'
-                value={name}
+                // value={name}
+                value={props.editing?user.name:name}
                 inputFocusEvent={inputFocusEvent}
-                inputRef={ref=> refObject.current['name'] = ref}
+                // inputRef={ref=> refObject.current['name'] = ref}
                 onChange={updateFormData}
                 // onChange={(props.editing?(handleInputChangeEdit):
                 //     (
@@ -392,15 +402,20 @@ function Form(props){
             <FormSubContainer title="Gender" class="form-radio mt-10" isRequired={true} >
                 <RadioButton
                     title="Male"
-                    value="Male"
                     name="gender"
-                    checked={gender}
+                    value="Male"
+                    // value={props.editing?user.gender:"Male"}
+                    // checked={gender}
+                    checked={props.editing?user.gender:gender}
                     onChange={updateFormData}
                 />
                 <RadioButton
                     title="female"
                     value="Female"
-                    checked={gender}
+                    // value={props.editing?user.gender:"Female"}
+                    checked={props.editing?user.gender:gender}
+
+                    // checked={gender}
                     name="gender"
                     onChange={updateFormData}
                 />
@@ -410,19 +425,76 @@ function Form(props){
                 
          
             {         
-                           
+                  
+                    //  props.editing?(
+                    //     <>
+                    //     <Input
+                    //     type='checkbox'
+                    //     title='FCPS'
+                    //     name='qualification'
+                    //     // class='form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer'
+                    //     // value={name}
+                    //     value='FCPS'
+                    //   checked={user.qualification}
+                    //     // inputRef={ref=> refObject.current['name'] = ref}
+                    //     onChange={updateFormData}
+                        
+                    //     />
+                    //      <Input
+                    //     type='checkbox'
+                    //     name='qualification'
+                    //   checked={user.qualification}
 
-                    Object.keys(qualification).map((key,index)=>
+                    //     // value={name}
+                    //     value='FCPS1'
+                      
+                    //     // inputRef={ref=> refObject.current['name'] = ref}
+                    //     onChange={updateFormData}
+                        
+                    //     />
+                    //      <Input
+                    //     type='checkbox'
+                    //     name='qualification'
+                    //   checked={user.qualification}
+
+                    //     // value={name}
+                    //     value='FCPS2'
+                      
+                    //     // inputRef={ref=> refObject.current['name'] = ref}
+                    //     onChange={updateFormData}
+                        
+                    //     />
+                    //      <Input
+                    //     type='checkbox'
+                    //     name='qualification'
+                    //   checked={user.qualification}
+
+                    //     // value={name}
+                    //     value='FCPS3'
+                      
+                    //     // inputRef={ref=> refObject.current['name'] = ref}
+                    //     onChange={updateFormData}
+                        
+                    //     />
+                    //     </>
+                    //  ):(
+                        Object.keys(qualification).map((key,index,value)=>
                         <CheckBox
                             key={index}
                             title={key}
-                            checked={qualification[key]==true}
+                            // checked={qualification[key]==true}
+                          checked={props.editing?(user.qualification):(qualification[key]==true)}
+
                             name={key}
+                            // name={props.editing?user.qualification[key]:key}
                             value={key}
+                            // value={props.editing?user.qualification[key]:key}
                             onChange={updateCheckBox}
                             />
-                    )
-                            
+                    
+                    //  ) 
+                     )
+                        
                 }
 
 
@@ -441,7 +513,9 @@ function Form(props){
                                <CheckBox
                                    key={index}
                                    title={key}
-                                   checked={speciality[key]==true}
+                                //    checked={speciality[key]==true}
+                    checked={props.editing?(user.speciality):(speciality[key]==true)}
+
                                    name={key}
                                    value={key}
                                    onChange={updatespecialityBox}
@@ -453,14 +527,15 @@ function Form(props){
 
             <FormSubContainer title="YEARS OF ALL POST GRADUATION"
       
- isRequired={true} invalid={invalidObject['yoapgd']}>
+ >
                 <Input
                 placeholder='Your Answer'
                 type='text'
                 name='yoapgd'
-                value={yoapgd}
-                inputFocusEvent={inputFocusEvent}
-                inputRef={ref=> refObject.current['yoapgd'] = ref}
+                // value={yoapgd}
+                value={props.editing?user.yoapgd:yoapgd}
+                // inputFocusEvent={inputFocusEvent}
+                // inputRef={ref=> refObject.current['yoapgd'] = ref}
                 onChange={updateFormData}
                 />
             </FormSubContainer>
@@ -468,6 +543,7 @@ function Form(props){
             <FormSubContainer title="Working Place (City/ Region) " isRequired={true} >
                 <Select
                 selectOptions={selectOptions}
+                // selectOptions={props.editing?user.selectOptions:selectOptions}
                 name="selectOptions"
                 onChange={updateFormData}
                 // selectRef={ref=> refObject.current['qualification'] = ref}
@@ -485,7 +561,8 @@ function Form(props){
                      placeholder='Your Answer'
                      type='text'
                      name='workingPlace'
-                     value={workingPlace}
+                    //  value={workingPlace}
+                    value={props.editing?user.workingPlace:workingPlace}
                      inputFocusEvent={inputFocusEvent}
                     //  inputRef={ref=> refObject.current['hospital'] = ref}
                      onChange={updateFormData}
@@ -500,41 +577,53 @@ function Form(props){
                     title="ConsultanProfessor"
                     value="ConsultanProfessor"
                     name="hospitalPost"
-                    checked={hospitalPost}
+                    // checked={hospitalPost}
+                    checked={props.editing?user.hospitalPost:hospitalPost}
+
                     onChange={updateFormData}
                 />
                 <RadioButton
                     title="Senior Rgistrar / Associate Consultant! A P"
-                    value="Senior Rgistrar / Associate Consultant! A P"
-                    checked={hospitalPost}
+                    value="Senior Rgistrar / Associate Consultant"
+                    // checked={hospitalPost}
+                    checked={props.editing?user.hospitalPost:hospitalPost}
+
                     name="hospitalPost"
                     onChange={updateFormData}
                 />
                  <RadioButton
                     title="Rgistrar / Assisstant Consultant / Specialist"
-                    value="Rgistrar / Assisstant Consultant / Specialist"
-                    checked={hospitalPost}
+                    value="Registrar / Assisstant Consultant / Specoalist"
+                    // checked={hospitalPost}
+                    checked={props.editing?user.hospitalPost:hospitalPost}
+
                     name="hospitalPost"
                     onChange={updateFormData}
                 />
                  <RadioButton
                     title="Resident"
                     value="Resident"
-                    checked={hospitalPost}
+                    // checked={hospitalPost}
+                    checked={props.editing?user.hospitalPost:hospitalPost}
+
                     name="hospitalPost"
                     onChange={updateFormData}
                 />
                  <RadioButton
                     title="House Physician / General Practitioner"
                     value="House Physician / General Practitioner"
-                    checked={hospitalPost}
+                    // checked={hospitalPost}
+                    checked={props.editing?user.hospitalPost:hospitalPost}
+
                     name="hospitalPost"
                     onChange={updateFormData}
                 />
                  <RadioButton
                     title="Other:"
                     value="Other:"
-                    checked={hospitalPost}
+                    // checked={hospitalPost}
+                    checked={props.editing?user.hospitalPost:hospitalPost}
+
                     name="hospitalPost"
                     onChange={updateFormData}
                 />
@@ -548,7 +637,9 @@ function Form(props){
                      placeholder='Your Answer'
                      type='text'
                      name='yearOfEntry'
-                     value={yearOfEntry}
+                    //  value={yearOfEntry}
+                    value={props.editing?user.yearOfEntry:yearOfEntry}
+
                      inputFocusEvent={inputFocusEvent}
                     //  inputRef={ref=> refObject.current['ksa'] = ref}
                      onChange={updateFormData}
@@ -560,13 +651,17 @@ function Form(props){
                     title="Three Years"
                     value="Three Years"
                     name="residencyDuration"
-                    checked={residencyDuration}
+                    // checked={residencyDuration}
+                    checked={props.editing?user.residencyDuration:residencyDuration}
+
                     onChange={updateFormData}
                 />
                 <RadioButton
                     title="Four Years"
                     value="Four Years"
-                    checked={residencyDuration}
+                    // checked={residencyDuration}
+                    checked={props.editing?user.residencyDuration:residencyDuration}
+
                     name="residencyDuration"
 
                     onChange={updateFormData}
@@ -574,7 +669,9 @@ function Form(props){
                  <RadioButton
                     title="Five Years"
                     value="Five Years"
-                    checked={residencyDuration}
+                    // checked={residencyDuration}
+                    checked={props.editing?user.residencyDuration:residencyDuration}
+
                     name="residencyDuration"
 
                     onChange={updateFormData}
@@ -590,28 +687,36 @@ function Form(props){
                     title="Not applied"
                     value="Not applied"
                     name="SCFHSresponse"
-                    checked={SCFHSresponse}
+                    // checked={SCFHSresponse}
+                    checked={props.editing?user.SCFHSresponse:SCFHSresponse}
+
                     onChange={updateFormData}
                 />
                  <RadioButton
                     title="Rejected"
                     value="Rejected"
                     name="SCFHSresponse"
-                    checked={SCFHSresponse}
+                    // checked={SCFHSresponse}
+                    checked={props.editing?user.SCFHSresponse:SCFHSresponse}
+
                     onChange={updateFormData}
                 />
                <RadioButton
                     title="No Reply"
                     value="No Reply"
                     name="SCFHSresponse"
-                    checked={SCFHSresponse}
+                    // checked={SCFHSresponse}
+                    checked={props.editing?user.SCFHSresponse:SCFHSresponse}
+
                     onChange={updateFormData}
                 />
                   <RadioButton
                     title="Accepted"
                     value="Accepted"
                     name="SCFHSresponse"
-                    checked={SCFHSresponse}
+                    // checked={SCFHSresponse}
+                    checked={props.editing?user.SCFHSresponse:SCFHSresponse}
+
                     onChange={updateFormData}
                 />
                 
@@ -624,14 +729,18 @@ function Form(props){
                     title="Yes"
                     value="Yes"
                     name="transScript"
-                    checked={transScript}
+                    // checked={transScript}
+                    checked={props.editing?user.transScript:transScript}
+
                     onChange={updateFormData}
                 />
                  <RadioButton
                     title="No"
                     value="No"
                     name="transScript"
-                    checked={transScript}
+                    // checked={transScript}
+                    checked={props.editing?user.transScript:transScript}
+
                     onChange={updateFormData}
                 />
               
@@ -647,46 +756,62 @@ function Form(props){
                     title="Consultant"
                     value="Consultant"
                     name="SCFHSpost"
-                    checked={SCFHSpost}
+                    // checked={SCFHSpost}
+                    checked={props.editing?user.SCFHSpost:SCFHSpost}
+
                     onChange={updateFormData}
                 />
                 <RadioButton
                     title="Senior Registrar"
-                    value="Senior Registrar"
-                    checked={SCFHSpost}
+                    value="SENIOR REGISTRAR"
+                    // checked={SCFHSpost}
+                    checked={props.editing?user.SCFHSpost:SCFHSpost}
+
                     name="SCFHSpost"
                     onChange={updateFormData}
                 />
                  <RadioButton
                     title="Registrar"
-                    value="Registrar"
-                    checked={SCFHSpost}
+                    // value="Registrar"
+                    value={"REGISTRAR"}
+                    // checked={SCFHSpost}
+                    checked={props.editing?user.SCFHSpost:SCFHSpost}
+
                     name="SCFHSpost"
                     onChange={updateFormData}
                 />
                  <RadioButton
                     title="General Practitioner"
                     value="General Practitioner"
-                    checked={SCFHSpost}
+                    // checked={SCFHSpost}
+                    checked={props.editing?user.SCFHSpost:SCFHSpost}
+
                     name="SCFHSpost"
                     onChange={updateFormData}
                 />
                  <RadioButton
                     title="Resident"
                     value="Resident"
-                    checked={SCFHSpost}
+                    // checked={SCFHSpost}
+                    checked={props.editing?user.SCFHSpost:SCFHSpost}
+
                     name="SCFHSpost"
                     onChange={updateFormData}
                 />
                
             </FormSubContainer>
              
-            <FormSubContainer title="E-mail Id"  isRequired={true} >
+              {props.editing?(<div></div>)
+              
+              :(
+                <>
+                <FormSubContainer title="E-mail Id"  isRequired={true} >
                 <Input
                 placeholder='your email-id please'
                 type='email'
                 name='email'
                 value={email}
+
                 inputFocusEvent={inputFocusEvent}
                 inputRef={ref=> refObject.current['email'] = ref}
                 onChange={updateFormData}
@@ -699,18 +824,25 @@ function Form(props){
                 type='password'
                 name='password'
                 value={password}
+
                 inputFocusEvent={inputFocusEvent}
                 // inputRef={ref=> refObject.current['email'] = ref}
                 onChange={updateFormData}
                 />
             </FormSubContainer>
+            </>
+              )}
+
+           
 
             <FormSubContainer title="Mobile Number Saudi Local Contact 05......."  isRequired={true} >
                 <Input
                 placeholder='Your Answer'
-                type='number'
+                type='text'
                 name='mobile'
-                value={mobile}
+                // value={mobile}
+                value={props.editing?user.mobile:mobile}
+
                 inputFocusEvent={inputFocusEvent}
                 // inputRef={ref=> refObject.current['mobile'] = ref}
                 onChange={updateFormData}

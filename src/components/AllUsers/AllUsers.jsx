@@ -49,7 +49,11 @@ const AllUsers = (props) => {
   // }
            
 
-         const edit=()=>{
+         const edit=(user)=>{
+          navigate("/")
+                  props.editRow(user)
+                        // console.log(user)
+                       
           console.log("Edit this row");
          }
 
@@ -89,7 +93,6 @@ confirmAlert({
     const Role = localStorage.getItem('Role');
   
       
-    
  
   
   return (
@@ -229,10 +232,14 @@ confirmAlert({
                       
 
                       }
-                      {  <button onClick={() => 
-                          navigate("/")&&
+                      {  <button
+                      //  onClick={edit} 
+                      onClick={() => {
                         props.editRow(user)
-                        }  class="bg-blue-500 mt-5 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+                      navigate('/')
+                      }
+                      }
+                        class="bg-blue-500 mt-5 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
                         Edit
                       </button>}
                       
