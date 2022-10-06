@@ -373,7 +373,7 @@ function Form(props){
     },[handleMouseEvent])
     
    
-      
+    
     return( 
         <form className='form-container' onSubmit={submitHandler} >
 
@@ -425,77 +425,82 @@ function Form(props){
                 
          
             {         
+
+                   
                   
-                    //  props.editing?(
-                    //     <>
-                    //     <Input
-                    //     type='checkbox'
-                    //     title='FCPS'
-                    //     name='qualification'
-                    //     // class='form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer'
-                    //     // value={name}
-                    //     value='FCPS'
-                    //   checked={user.qualification}
-                    //     // inputRef={ref=> refObject.current['name'] = ref}
-                    //     onChange={updateFormData}
-                        
-                    //     />
-                    //      <Input
-                    //     type='checkbox'
-                    //     name='qualification'
-                    //   checked={user.qualification}
+                     props.editing?(
+                        <>
 
-                    //     // value={name}
-                    //     value='FCPS1'
-                      
-                    //     // inputRef={ref=> refObject.current['name'] = ref}
-                    //     onChange={updateFormData}
-                        
-                    //     />
-                    //      <Input
-                    //     type='checkbox'
-                    //     name='qualification'
-                    //   checked={user.qualification}
+             
 
-                    //     // value={name}
-                    //     value='FCPS2'
-                      
-                    //     // inputRef={ref=> refObject.current['name'] = ref}
-                    //     onChange={updateFormData}
-                        
-                    //     />
-                    //      <Input
-                    //     type='checkbox'
-                    //     name='qualification'
-                    //   checked={user.qualification}
 
-                    //     // value={name}
-                    //     value='FCPS3'
-                      
-                    //     // inputRef={ref=> refObject.current['name'] = ref}
-                    //     onChange={updateFormData}
-                        
-                    //     />
-                    //     </>
-                    //  ):(
-                        Object.keys(qualification).map((key,index,value)=>
+   <CheckBox
+  title='FCPS'
+  value="FCPS"
+  checked={(user.qualification.split(','))[0]||[1]||[2]||[3]=='FCPS'}
+  
+  name='vvv'
+  
+  />
+  <CheckBox
+  title='MCPS'
+  value="MCPS"
+  checked={(user.qualification.split(','))[0]||[1]||[2]||[3]==' MCPfS'}
+  name='cvv'
+  
+  />
+   <CheckBox
+  title='Fellowship from Royal College of UK'
+  value="Fellowship from Royal College of UK"
+  checked={(user.qualification.split(','))[0]||[1]=='Fellowship from Royal College of UK'}
+  name='ccccccc'
+  
+  />
+  <CheckBox
+  title='Fellowship from Royal College of Ireland'
+  value="Fellowship from Royal College of UK"
+  checked={user.qualification.split(',')[1]==' Fellowship from Royal College of Ireland'}
+  name='vbv'
+  
+  />
+    <CheckBox
+  title='test'
+  value="Fellowship from Royal College of UK"
+  checked={user.qualification=='Fellowship from Royal College of UK'}
+  name='vbv'
+  
+  />
+   <CheckBox
+                                   title='Membership from Royal College of UK'
+                                   checked={user.qualification.split(',')[1]||[2]||[3]||[4]==' Membership from Royal College of Ireland'}
+
+
+                                   name='FCPS'
+                                   value='Fellowship from Royal College of UK'
+                                   onChange={updateCheckBox}
+                                   /> 
+ {console.log(user.qualification.split(','))}
+             
+                        </> 
+                     ):(
+                        Object.keys(qualification).map((key,index)=>
                         <CheckBox
                             key={index}
                             title={key}
-                            // checked={qualification[key]==true}
-                          checked={props.editing?(user.qualification):(qualification[key]==true)}
-
-                            name={key}
-                            // name={props.editing?user.qualification[key]:key}
-                            value={key}
-                            // value={props.editing?user.qualification[key]:key}
-                            onChange={updateCheckBox}
-                            />
-                    
-                    //  ) 
-                     )
-                        
-                }
+                            checked={user.qualification}
+                        //   checked={props.editing?(user.qualification):(qualification[key]==true)}
+                          name={key}
+                          // name={props.editing?user.qualification[key]:key}
+                          value={key}
+                          // value={props.editing?user.qualification[key]:key}
+                          onChange={updateCheckBox}
+                          />
+                          
+                           ) 
+                          )
+                          
+                        }
+                        {console.log(user.qualification)}
 
 
                                    
@@ -538,17 +543,20 @@ function Form(props){
                 // inputRef={ref=> refObject.current['yoapgd'] = ref}
                 onChange={updateFormData}
                 />
-            </FormSubContainer>
-
-            <FormSubContainer title="Working Place (City/ Region) " isRequired={true} >
-                <Select
-                selectOptions={selectOptions}
-                // selectOptions={props.editing?user.selectOptions:selectOptions}
-                name="selectOptions"
-                onChange={updateFormData}
-                // selectRef={ref=> refObject.current['qualification'] = ref}
-                />
-            </FormSubContainer>
+                                </FormSubContainer>
+                                {props.editing?(<div></div>):(
+                    <FormSubContainer title="Working Place (City/ Region) " isRequired={true} >
+                    <Select
+                    selectOptions={selectOptions}
+                    
+                    name="selectOptions"
+                    onChange={updateFormData}
+                    
+                    />
+                    </FormSubContainer>
+                                )
+                                }
+          
                   
             <FormSubContainer title="WORKING PLACE HOSPITAL NAME WITH CITY
 
