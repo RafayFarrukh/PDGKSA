@@ -4,7 +4,7 @@ import CheckBox from '../CheckBox/CheckBox';
 import FormSubContainer from '../FormSubContainer/FormSubContainer';
 import Input from '../Input/Input';
 import RadioButton from '../RadioButton/RadioButton';
-import M from 'materialize-css'
+import M, { updateTextFields } from 'materialize-css'
 import Select from '../Select/Select';
 import bcrypt from 'bcryptjs'
 import "./Form.css";
@@ -18,9 +18,8 @@ const salt = bcrypt.genSaltSync(10)
 const reducerFunction=(state,action)=>{
 	if(action.subName)
          return {...state,[action.name]:{...state[action.name],[action.subName]:action.value}}
-    return{...state,[action.name]:action.value}
- 
-
+     
+            return{...state,[action.name]:action.value}
 }
 
 
@@ -45,15 +44,15 @@ const initialValue={
     qualification:{
         FCPS:'',
         MCPS:'',
-        "Fellowship from Royal College of UK":"",
-        "Fellowship from Royal College of Ireland":"",
-        "Membership from Royal College of UK":"",
-        "Membership from Royal College of Ireland":"",
-        "Arab Board":"",
-        "Saudi Board":"",
-        "American Board Certification":"",
-        "European diploma":"",
-        "FCPS Part-1 (part 2 not yer finished)":"",
+        "FCAI":"",
+        "PhD":"",
+        "CPHQ":"",
+        "FACE":"",
+        "MRCP":"",
+        "FRCP":"",
+        "RSC":"",
+        "DESC":"",
+        "SCE":"",
         "Other":"",
         
     },
@@ -114,64 +113,15 @@ const initialValueValidation={
     residencyDuration:false,
     gender:false, // radio button
     qualification :false,
-    // qualification:{
-    //     FCPS:false,
-    //     MCPS:false,
-    //     "Fellowship fromRoyal College of UK":true,
-    //     "Fellowship from Royal College of Ireland":false,
-    //     "Membership from Royal College of UK":false,
-    //     "Membership from Royal College of Ireland":false,
-    //     "Arab Board":false,
-    //     "Saudi Board":false,
-    //     "American Board Certification":false,
-    //     "European diploma":false,
-    //     "FCPS Part-1 (part 2 not yer finished)":false,
-    //     "Other":false,
-        
-    // },
-    // speciality:{
-    //     ANAESTHESIOLOGY:false,
-    //     "CARDIAC SURGERY":false,
-    //     CARDIOLOGY:false,
-    //     "CHEMICAL PATHOLOGY":false,
-    //     "CLINICAL HAEMATOLOGY":false,
-    //     "COMMUNITY MEDICINE":false,
-    //     "Arab DERMATOLOGY":false,
-    //     "DIAGNOSTIC RADIOLOGY":false,
-    //     "EMERGENCY MEDICINE":false,
-    //     "FAMILY MEDICINE":false,
-    //     "FORENSIC MEDICINE":false,
-    //     "GASTROENTEROLOGY":false,
-    //     "GENERAL SURGERY":false,
-    //     "HAEMATOLOGY":false,
-    //     "HISTOPATHOLOGY":false,
-    //     "INTERNAL MEDICINE":false,
-    //     "MEDICINE":false,
-    //     "MICROBIOLOGY":false,
-    //     "Madical ONCOLOGY":false,
-    //     "NEPHROLOGY":false,
-    //     "NEUROLOGY":false,
-    //     "NUCLEAR MEDICINE":false,
-    //     "OBSTETRICS & GYNAECOLOGY":false,
-    //     "Operative DENTISRY":false,
-    //     "OPTHALMOLOGY":false,
-    //     "ORAL & MANILLO- FACIAL SURGERY":false,
-    //     "ORTHODONTICS":false,
-    //     "ORTHOPAEDIC Surgery":false,
-    //     "OTO- RHINO- LOGY ENT)":false,
-    //     "PAEDIATRIC SURGERY":false,
-    //     "PAEDIATRICS":false,
-    // }
-    // qualification:{MCPS:true,"hi you":true}
-    // checkbox
-    // userImresidencyDuration:false // file picker for img 
+ 
 }
 
 
 const reducerFunctionValidation=(state,action)=>{
 	if(action.subName)
          return {...state,[action.name]:{...state[action.name],[action.subName]:action.value}}
-    return{...state,[action.name]:action.value}
+        
+            return{...state,[action.name]:action.value}
 }
 
 
@@ -191,10 +141,9 @@ function Form(props){
         [props]
       );
         
-    //   const handleInputChangeEdit = event => {
-    //     const { name, value } = event.target;
-    //     setUser({ [name]: value });
-    //   };
+      const handleInputChangeEdit = event => {
+       console.log("hi")
+      };
       const [user, setUser] = useState((props.editing?(props.currentUser):(initialValue)));
       const seteditfalse=()=>{
         props.setEditing(false)
@@ -202,11 +151,9 @@ function Form(props){
       }
 
     const selectOptions=['Green Acre','Lahore','Karachi','Islamabaad','Multan','Naran','Peshawar'];
-  
+  console.log(props.currentUser);
 
     const [formData,dispatchFunction]=useReducer(reducerFunction,initialValue);
-
-
     
     // validation support state
     const [invalidObject,setInvalidObject]=useReducer(reducerFunctionValidation,initialValueValidation);
@@ -231,14 +178,28 @@ function Form(props){
 		dispatchFunction({'name':event.target.name,'value':event.target.value});
 	},[])
 
-    const updateCheckBox=useCallback((event)=>{
+   
+    const editFormData=useCallback((event)=>{
+    //  console.log({'value':event.target.value});
+console.log("hiiiii")
+
        
+        // setUser({'name':event.target.name,'value':event.target.value})
+            // dispatchFunction(event.target.value)
+            console.log({'name':event.target.name,'value':event.target.value});
+            dispatchFunction({'name':event.target.name,'value':event.target.value})
+            // setUser(props.currentUser)
+	
+	},[])
+
+    const updateCheckBox=useCallback((event)=>{
+ 
 	
         dispatchFunction({'name':'qualification','subName':event.target.value,value:!qualification[event.target.name]})
-        
-     
-        
 
+
+
+ 
     },[qualification]);
     const updatespecialityBox=useCallback((event)=>{
         dispatchFunction({'name':'speciality','subName':event.target.name,value:!speciality[event.target.name]})
@@ -301,11 +262,11 @@ function Form(props){
         //   HosNameCity:formData.selectOptions,
         //   gender:gender,
         //   transScript:transScript,
-        //   qualification: formData.qualification.toString().replace(/,/g,', '),
+        //   qualification: formData.speciality.toString().replace(/,/g,', '),
         //   yearOfEntry:yearOfEntry,
         //   yoapgd:yoapgd,
         //   SCFHSresponse:SCFHSresponse,
-        //   speciality: formData.speciality.toString().replace(/,/g,', '),
+        //   speciality: formData.qualification.toString().replace(/,/g,', '),
         //   SCFHSpost:SCFHSpost
         // },formData)
         
@@ -378,23 +339,16 @@ function Form(props){
         <form className='form-container' onSubmit={submitHandler} >
 
 
-            <FormSubContainer title="Name"  isRequired={true} >
-                <Input
-                placeholder='your name please'
+ 
+
+            <FormSubContainer title="Name" >
+            <Input
+                placeholder='Your Answer'
                 type='text'
                 name='name'
-                // value={name}
-                value={props.editing?user.name:name}
-                inputFocusEvent={inputFocusEvent}
-                // inputRef={ref=> refObject.current['name'] = ref}
-                onChange={updateFormData}
-                // onChange={(props.editing?(handleInputChangeEdit):
-                //     (
-                //       updateFormData
-                //     )
-                    
-                    
-                //     )}
+                value={props.editing?user.name:name}            
+            
+                onChange={ updateFormData}
                 />
             </FormSubContainer>
 
@@ -403,21 +357,16 @@ function Form(props){
                 <RadioButton
                     title="Male"
                     name="gender"
-                    value="Male"
-                    // value={props.editing?user.gender:"Male"}
-                    // checked={gender}
+                    value="Male"                    
                     checked={props.editing?user.gender:gender}
-                    onChange={updateFormData}
+                    onChange={props.editing?editFormData:updateFormData}
                 />
                 <RadioButton
                     title="female"
                     value="Female"
-                    // value={props.editing?user.gender:"Female"}
                     checked={props.editing?user.gender:gender}
-
-                    // checked={gender}
                     name="gender"
-                    onChange={updateFormData}
+                    onChange={props.editing?editFormData:updateFormData}
                 />
             </FormSubContainer>
 
@@ -434,52 +383,117 @@ function Form(props){
              
 
 
-   <CheckBox
-  title='FCPS'
-  value="FCPS"
-  checked={(user.qualification.split(','))[0]||[1]||[2]||[3]=='FCPS'}
+                            <CheckBox
+                                title='FCPS'
+                                value="FCPS"
+                                checked={(user.speciality).includes('FCPS')}
+                                onChange={updateCheckBox}
+                                name='speciality'
+                            />
   
-  name='vvv'
-  
-  />
-  <CheckBox
-  title='MCPS'
-  value="MCPS"
-  checked={(user.qualification.split(','))[0]||[1]||[2]||[3]==' MCPfS'}
-  name='cvv'
-  
-  />
-   <CheckBox
-  title='Fellowship from Royal College of UK'
-  value="Fellowship from Royal College of UK"
-  checked={(user.qualification.split(','))[0]||[1]=='Fellowship from Royal College of UK'}
-  name='ccccccc'
-  
-  />
-  <CheckBox
-  title='Fellowship from Royal College of Ireland'
-  value="Fellowship from Royal College of UK"
-  checked={user.qualification.split(',')[1]==' Fellowship from Royal College of Ireland'}
-  name='vbv'
-  
-  />
-    <CheckBox
-  title='test'
-  value="Fellowship from Royal College of UK"
-  checked={user.qualification=='Fellowship from Royal College of UK'}
-  name='vbv'
-  
-  />
-   <CheckBox
-                                   title='Membership from Royal College of UK'
-                                   checked={user.qualification.split(',')[1]||[2]||[3]||[4]==' Membership from Royal College of Ireland'}
+                                <CheckBox
+                                    title='MCPS'
+                                    value="MCPS"
+                                    checked={(user.speciality.includes('MCPS'))}
+                                    name='speciality'
+                                    onChange={updateCheckBox}                               
+                                />
+                                       
+                                   <CheckBox
+                                        title='FCAI'
+                                        value="FCAI"
+                                        checked={(user.speciality.includes('FCAI'))}
+                                        name='speciality'
+                                        onChange={updateCheckBox}                                       
+                                    />
+                                        <CheckBox
+                                            title='PhD'
+                                            value="Fellowship from Royal College of UK"
+                                            checked={user.speciality.includes('PhD')}
+                                            name='speciality'
+                                            onChange={updateCheckBox}
+                                        
+                                        />
+                                            <CheckBox
+                                                title='CPHQ'
+                                                value="CPHQ"
+                                                checked={user.speciality.includes('CPHQ')}
+                                                onChange={updateCheckBox}
 
+                                                name='speciality'
+                                        
+                                            />
+                                                <CheckBox
+                                                    title='FACE'
+                                                    checked={user.speciality.includes('FACE')}
+                                                    name='speciality'
+                                                    value='Fellowship from Royal College of UK'
+                                                    onChange={updateCheckBox}
+                                                /> 
+                            
+                            {/* <CheckBox
+                                title='Endocrinologist'
+                                value="Endocrinologist"
+                                checked={user.speciality.includes('Endocrinologist')}
+                                onChange={updateCheckBox}
 
-                                   name='FCPS'
-                                   value='Fellowship from Royal College of UK'
-                                   onChange={updateCheckBox}
-                                   /> 
- {console.log(user.qualification.split(','))}
+                                name='speciality'
+  
+                            /> */}
+                              <CheckBox
+                                    title='MRCP'
+                                    value="MRCP"
+                                    checked={user.speciality.includes('MRCP')}
+                                    onChange={updateCheckBox}
+
+                                    name='speciality'
+  
+                                />
+                              <CheckBox
+                                    title='FRCP'
+                                    value="FRCP"
+                                    checked={user.speciality.includes('FRCP')}
+                                    onChange={updateCheckBox}
+
+                                    name='speciality'
+    
+                                />
+                                <CheckBox
+                                    title='RSC'
+                                    value="RSC"
+                                    checked={user.speciality.includes('RSC')}
+                                    onChange={updateCheckBox}
+
+                                    name='speciality'
+    
+                                />
+                                  <CheckBox
+                                        title='DESC'
+                                        value="DESC"
+                                        checked={user.speciality.includes('DESC')}
+                                        onChange={updateCheckBox}
+
+                                        name='speciality'
+    
+                                    />
+                                     <CheckBox
+                                        title='SCE'
+                                        value="SCE"
+                                        checked={user.speciality.includes('SCE')}
+                                        onChange={updateCheckBox}
+
+                                        name='speciality'
+    
+                                    />
+                                          <Input
+                                                placeholder='your name please'
+                                                type='text'
+                                                name='name'
+                                                value={'SCE Endocrinologist'}                                 
+                                            
+                                                // inputFocusEvent={inputFocusEvent}
+                                                onChange={updateFormData}
+                                            />
              
                         </> 
                      ):(
@@ -487,20 +501,17 @@ function Form(props){
                         <CheckBox
                             key={index}
                             title={key}
-                            checked={user.qualification}
-                        //   checked={props.editing?(user.qualification):(qualification[key]==true)}
-                          name={key}
-                          // name={props.editing?user.qualification[key]:key}
-                          value={key}
-                          // value={props.editing?user.qualification[key]:key}
-                          onChange={updateCheckBox}
+                            checked={qualification[key==true]}                      
+                            name={key}                        
+                            value={key}                          
+                            onChange={updateCheckBox}
                           />
                           
                            ) 
                           )
                           
                         }
-                        {console.log(user.qualification)}
+                        {/* {console.log(user.speciality)} */}
 
 
                                    
@@ -512,20 +523,305 @@ function Form(props){
 
         <FormSubContainer title="Speciality">
         {         
+                             
+              props.editing?(
+<>
+               <CheckBox
+                  title='ANAESTHESIOLOGY'
+                  value="Anaesthesiology"
+                  checked={(user.qualification).includes('Anaesthesiology')}
+                  onChange={updateCheckBox}
+                  name='qualification'
+                 /> 
+                  <CheckBox
+                  title='ANESTHESIA'
+                  value="Anesthesia"
+                  checked={(user.qualification).includes('Anesthesia')}
+                  onChange={updateCheckBox}
+                  name='qualification'
+                 /> 
+
+                    <CheckBox
+                        title='CARDIAC SURGERY'
+                        value="CARDIAC SURGERY"
+                        checked={(user.qualification).includes('CARDIAC SURGERY')}
+                        onChange={updateCheckBox}
+                        name='qualification'
+                    /> 
+                       
+                       <CheckBox
+                            title='CARDIOLOGY'
+                            value="CARDIOLOGY"
+                            checked={(user.qualification).includes('CARDIOLOGY')}
+                            onChange={updateCheckBox}
+                            name='qualification'
+                        /> 
+                            
+                            <CheckBox
+                                title='CHEMICAL PATHOLOGY'
+                                value="CHEMICAL PATHOLOGY"
+                                checked={(user.qualification).includes('CHEMICAL PATHOLOGY')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             />  
+ 
+                        <CheckBox
+                                title='CLINICAL HAEMATOLOGY'
+                                value="CLINICAL HAEMATOLOGY"
+                                checked={(user.qualification).includes('CLINICAL HAEMATOLOGY')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             />  
+                            <CheckBox
+                                title='COMMUNITY MEDICINE'
+                                value="Community medicine"
+                                checked={(user.qualification).includes('Community medicine')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             />  
+                              <CheckBox
+                                title='RADIOTHERAPY'
+                                value="Radiotherapy"
+                                checked={(user.qualification).includes('Radiotherapy')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             />  
+                            <CheckBox
+                                title='Arab DERMATOLOGY'
+                                value="Arab DERMATOLOGY"
+                                checked={(user.qualification).includes('Arab DERMATOLOGY')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             />  
+                            <CheckBox
+                                title='DIAGNOSTIC RADIOLOGY'
+                                value="Diagnostic radiology"
+                                checked={(user.qualification).includes('Diagnostic radiology')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             />  
+                            <CheckBox
+                                title='EMERGENCY MEDICINE'
+                                value="EMERGENCY MEDICINE"
+                                checked={(user.qualification).includes('EMERGENCY MEDICINE')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             />  
+                            <CheckBox
+                                title='FAMILY MEDICINE'
+                                value="FAMILY MEDICINE"
+                                checked={(user.qualification).includes('FAMILY MEDICINE')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             />  
+                              <CheckBox
+                                title='PROSTHODONTICS'
+                                value="Prosthodontics"
+                                checked={(user.qualification).includes('Prosthodontics')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             />  
+                            <CheckBox
+                                title='FORENSIC MEDICINE'
+                                value="FORENSIC MEDICINE"
+                                checked={(user.qualification).includes('FORENSIC MEDICINE')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             />  
+                            <CheckBox
+                                title='GASTROENTEROLOGY'
+                                value="GASTROENTEROLOGY"
+                                checked={(user.qualification).includes('GASTROENTEROLOGY')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             />  
+                            <CheckBox
+                                title='GENERAL SURGERY'
+                                value="General Surgery"
+                                checked={(user.qualification).includes('General Surgery')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             />  
+                            <CheckBox
+                                title='HAEMATOLOGY'
+                                value="HAEMATOLOGY"
+                                checked={(user.qualification).includes('HAEMATOLOGY')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             />  
+                            <CheckBox
+                                title='HISTOPATHOLOGY'
+                                value="HISTOPATHOLOGY"
+                                checked={(user.qualification).includes('HISTOPATHOLOGY')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             />  
+
+                            <CheckBox
+                                title='INTERNAL MEDICINE'
+                                value="Internal medicine"
+                                checked={(user.qualification).includes('Internal medicine')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             /> 
+                            <CheckBox
+                                title='MEDICINE'
+                                value="Medicine"
+                                checked={(user.qualification).includes('Medicine')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             /> 
+                            <CheckBox
+                                title='MICROBIOLOGY'
+                                value="MICROBIOLOGY"
+                                checked={(user.qualification).includes('MICROBIOLOGY')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             /> 
+                            <CheckBox
+                                title='Madical ONCOLOGY'
+                                value="Madical ONCOLOGY"
+                                checked={(user.qualification).includes('Madical ONCOLOGY')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             /> 
+                            <CheckBox
+                                title='NEPHROLOGY'
+                                value="NEPHROLOGY"
+                                checked={(user.qualification).includes('NEPHROLOGY')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             /> 
+                            <CheckBox
+                                title='CHEMICAL PATHOLOGY'
+                                value="CHEMICAL PATHOLOGY"
+                                checked={(user.qualification).includes('CHEMICAL PATHOLOGY')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             /> 
+                            <CheckBox
+                                title='NEUROLOGY'
+                                value="NEUROLOGY"
+                                checked={(user.qualification).includes('NEUROLOGY')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             /> 
+                            <CheckBox
+                                title='NUCLEAR MEDICINE'
+                                value="Nuclear Medicine"
+                                checked={(user.qualification).includes('Nuclear Medicine')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             /> 
+                            <CheckBox
+                                title='CHEMICAL PATHOLOGY'
+                                value="CHEMICAL PATHOLOGY"
+                                checked={(user.qualification).includes('CHEMICAL PATHOLOGY')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             /> 
+                            <CheckBox
+                                title='OBSTETRICS & GYNAECOLOGY'
+                                value="OBSTETRICS & GYNAECOLOGY"
+                                checked={(user.qualification).includes('OBSTETRICS & GYNAECOLOGY')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             /> 
+                            <CheckBox
+                                title='Operative Dentistry'
+                                value="Operative Dentistry"
+                                checked={(user.qualification).includes('Operative Dentistry')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             /> 
+                            <CheckBox
+                                title='OPTHALMOLOGY'
+                                value="Ophthalmology"
+                                checked={(user.qualification).includes('Ophthalmology')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             /> 
+                            <CheckBox
+                                title='Oral and Maxillofacial surgery'
+                                value="Oral and Maxillofacial surgery"
+                                checked={(user.qualification).includes('Oral and Maxillofacial surgery')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             /> 
+
+                            <CheckBox
+                                title='ORTHODONTICS'
+                                value="ORTHODONTICS"
+                                checked={(user.qualification).includes('ORTHODONTICS')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             /> 
+                             <CheckBox
+                                title='ORTHOPAEDIC Surgery'
+                                value="ORTHOPAEDIC Surgery"
+                                checked={(user.qualification).includes('ORTHOPAEDIC Surgery')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             /> 
+                             <CheckBox
+                                title='OTO- RHINO- LOGY ENT)'
+                                value="OTO- RHINO- LOGY ENT)"
+                                checked={(user.qualification).includes('OTO- RHINO- LOGY ENT)')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             /> 
+                             <CheckBox
+                                title='PAEDIATRIC SURGERY'
+                                value="PAEDIATRIC SURGERY"
+                                checked={(user.qualification).includes('PAEDIATRIC SURGERY')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             /> 
+                             <CheckBox
+                                title='PAEDIATRICS'
+                                value="PAEDIATRICS"
+                                checked={(user.qualification).includes('PAEDIATRICS')}
+                                onChange={updateCheckBox}
+                                name='qualification'
+                             /> 
+                                             <Input
+                                             title="Others"
+                                                placeholder='your name please'
+                                                type='text'
+                                                name='name'
+                                                value={props.editing?user.qualification:qualification}
+                                                // inputFocusEvent={inputFocusEvent}
+                                                onChange={updateFormData}
+                                            />
+
+
+
+
+
+
+
+
+
+
+ </>
+                        
+                        ):(
+                        
+                        Object.keys(speciality).map((key,index)=>
+                        <CheckBox
+                            key={index}
+                            title={key}
+                            checked={speciality[key]==true}
+                            name={key}
+                            value={key}
+                            onChange={updatespecialityBox}
+                            />
+                    )
+                       )        
+                   
+
+
                            
-
-                           Object.keys(speciality).map((key,index)=>
-                               <CheckBox
-                                   key={index}
-                                   title={key}
-                                //    checked={speciality[key]==true}
-                    checked={props.editing?(user.speciality):(speciality[key]==true)}
-
-                                   name={key}
-                                   value={key}
-                                   onChange={updatespecialityBox}
-                                   />
-                           )
                                    
                        }
         </FormSubContainer>
@@ -870,9 +1166,11 @@ function Form(props){
                 <Button type="button" classProp="clear-button" clickHandler={clearFormFunction}>
                     Clear Form
                 </Button>
-                <Button type="submit"  classProp="button"  disabled={
-                   !( name!=='' && email!=='' && mobile!=='' && hospitalPost!=='' && residencyDuration!=='' && gender!=='' && transScript!=='' && password!==''  && workingPlace!=='' && SCFHSresponse!=='' && speciality!=='' && password!=='' && SCFHSpost!=='' && yoapgd!=='')
-                } >
+                <Button type="submit"  classProp="button" 
+                //  disabled={
+                //    !( name!=='' && email!=='' && mobile!=='' && hospitalPost!=='' && residencyDuration!=='' && gender!=='' && transScript!=='' && password!==''  && workingPlace!=='' && SCFHSresponse!=='' && speciality!=='' && password!=='' && SCFHSpost!=='' && yoapgd!=='')
+                // } 
+                >
                     Submit
                 </Button>
             </div>
